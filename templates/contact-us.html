@@ -1,0 +1,109 @@
+
+{% extends 'base.html' %}
+{% block cart %}
+
+<div class="shopping-cart-wrap">
+    <a href="#"> <span class="cart-total-amunt">{{cart.get_total_price}} تومان</span><i class="icon-shopping-bag2 float-left"></i><span class="cart-total">{{cart|length}}</span></a>
+    <ul class="mini-cart">
+        {% for item in cart %}
+            <li class="cart-item">
+                <div class="cart-image">
+                    <a href="{% url 'get.single.product' item.product.slug %}"><img alt="" src="/media/{{item.product.picture}}" width="80" height="80"></a>
+                </div> 
+                <div class="cart-title">
+                    <a href="single-product.html">
+                        <h4>{{item.product.name}}</h4>
+                    </a>
+                    <div class="quanti-price-wrap">
+                        <span class="quantity">{{item.quantity}} ×</span>
+                        <div class="price-box"><span class="new-price">{{item.price}} تومان</span></div>
+                    </div>
+                    <a class="{% url 'cart.remove' item.product.id %}" href="#"><i class="icon-x"></i></a>
+                </div>
+            </li>
+        {% endfor %}
+  
+        <li class="subtotal-box">
+            <div class="subtotal-title">
+                <h3>جمع کل :</h3><span>{{cart.get_total_price}} تومان</span>
+            </div>
+        </li>
+        <li class="mini-cart-btns">
+            <div class="cart-btns">
+                <a href="{% url 'cart.detail' %}">مشاهده سبد</a>
+                <a href="{% url 'order.create' %}">پرداخت</a>
+            </div>
+        </li>
+    </ul>
+</div>
+{% endblock cart %}
+{% block title %}
+فروشگاه اینترنتی رند - تماس با ما{% endblock title %}
+{% block content %}
+
+<!-- breadcrumb-area start -->
+<div class="breadcrumb-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <!-- breadcrumb-list start -->
+                <ul class="breadcrumb-list">
+                    <li class="breadcrumb-item"><a href="{% url 'home' %}">صفحه اصلی</a></li>
+                    <li class="breadcrumb-item active">جزئیات محصول</li>
+                </ul>
+                <!-- breadcrumb-list end -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- breadcrumb-area end -->
+
+
+<!-- main-content-wrap start -->
+<div class="main-content-wrap contact-wrap">
+    <div class="contact-form-area section-ptb">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 ">
+                    <div class="contact-info-wrap">
+                        <div class="contact-title mb-30">
+                            <h3>تماس باما</h3>
+                        </div>
+                        <div class="contact-info-text">
+                            <ul>
+                                <li>
+                                    <div class="contact-title">
+                                        <i class="fa fa-home"></i>
+                                        <h4>آدرس ما</h4>
+                                    </div>
+                                    <p>گیلان رودبار , خلیل آباد , روبروی جهاد , مجتمع دوقلوها</p>
+                                </li>
+                                <li>
+                                    <div class="contact-title">
+                                        <i class="fa fa-phone"></i>
+                                        <h4>شماره تلفن :</h4>
+                                    </div>
+                                    <p>موبایل : 09389505088<br>
+          
+                                    </p>
+                                </li>
+                                <li>
+                                    <div class="contact-title">
+                                        <i class="fa fa-envelope-open-o"></i>
+                                        <h4>ایمیل</h4>
+                                    </div>
+                                    <p>rend555bashash@gmail.com<br>
+                          
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- main-content-wrap end -->
+
+{% endblock content %}

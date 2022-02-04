@@ -1,0 +1,338 @@
+{% extends 'base.html' %}
+
+{% block title %} فروشگاه اینترنتی رند - مشاهده تکی محصول{% endblock title %}
+{% block cart %}
+<div class="shopping-cart-wrap">
+    <a href="#"> <span class="cart-total-amunt">{{cart.get_total_price}} تومان</span><i class="icon-shopping-bag2 float-left"></i><span class="cart-total">{{cart|length}}</span></a>
+    <ul class="mini-cart">
+        {% for item in cart %}
+            <li class="cart-item">
+                <div class="cart-image">
+                    <a href="{% url 'get.single.product' item.product.slug %}"><img alt="" src="/media/{{item.product.picture}}" width="80" height="80"></a>
+                </div> 
+                <div class="cart-title">
+                    <a href="single-product.html">
+                        <h4>{{item.product.name}}</h4>
+                    </a>
+                    <div class="quanti-price-wrap">
+                        <span class="quantity">{{item.quantity}} ×</span>
+                        <div class="price-box"><span class="new-price">{{item.price}} تومان</span></div>
+                    </div>
+                    <a class="{% url 'cart.remove' item.product.id %}" href="#"><i class="icon-x"></i></a>
+                </div>
+            </li>
+        {% endfor %}
+  
+        <li class="subtotal-box">
+            <div class="subtotal-title">
+                <h3>جمع کل :</h3><span>{{cart.get_total_price}} تومان</span>
+            </div>
+        </li>
+        <li class="mini-cart-btns">
+            <div class="cart-btns">
+                <a href="{% url 'cart.detail' %}">مشاهده سبد</a>
+                <a href="{% url 'order.create' %}">پرداخت</a>
+            </div>
+        </li>
+    </ul>
+</div>
+{% endblock cart %}
+{% block content %}
+<!-- breadcrumb-area start -->
+<div class="breadcrumb-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <!-- breadcrumb-list start -->
+                <ul class="breadcrumb-list">
+                    <li class="breadcrumb-item"><a href="{% url 'home' %}">صفحه اصلی</a></li>
+                    <li class="breadcrumb-item active">جزئیات محصول</li>
+                </ul>
+                <!-- breadcrumb-list end -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- breadcrumb-area end -->
+
+
+<!-- main-content-wrap start -->
+<div class="main-content-wrap shop-page section-ptb">
+    <div class="container">
+        <div class="row single-product-area product-details-inner">
+            <div class="col-lg-5 col-md-6">
+                <!-- Product Details Left -->
+                <div class="product-large-slider ">
+        
+                    <div class="pro-large-img img-zoom">
+                        <img src="/media/{{product.picture}}"  alt="product-details" />
+                        <a href="/media/{{product.picture}}" data-fancybox="images"><i class="fa fa-search"></i></a>
+                    </div>
+          
+                    {% if product.picture2 %}
+                        <div class="pro-large-img img-zoom">
+                            <img src="/media/{{product.picture2}}"  alt="product-details" />
+                            <a href="/media/{{product.picture2}}" data-fancybox="images"><i class="fa fa-search"></i></a>
+                        </div>
+                    {% endif %}
+                    
+                    {% if product.picture_3 %}
+                        <div class="pro-large-img img-zoom">
+                            <img src="/media/{{product.picture3}}"  alt="product-details" />
+                            <a href="/media/{{product.picture3}}" data-fancybox="images"><i class="fa fa-search"></i></a>
+                        </div>
+                    {% endif %}
+                   
+
+                    {% if product.picture_4 %}
+                        <div class="pro-large-img img-zoom">
+                            <img src="/media/{{product.picture4}}" alt="product-details" />
+                            <a href="/media/{{product.picture4}}" data-fancybox="images"><i class="fa fa-search"></i></a>
+                        </div>
+                    {% endif %}
+                
+            
+                </div>
+                <div class="product-nav ltr mt-20">
+                    <div class="pro-nav-thumb">
+                        <img src="/media/{{product.picture}}"  alt="product-details" />
+                    </div>
+
+                    {% if product.picture2 %}
+                        <div class="pro-nav-thumb">
+                            <img src="/media/{{product.picture2}}"   alt="product-details" />
+                        </div>
+                    {% endif %}
+
+                    {% if product.picture3 %}
+                        <div class="pro-nav-thumb">
+                            <img src="/media/{{product.picture3}}"  alt="product-details" />
+                        </div>
+                    {% endif %}
+
+                    {% if product.picture4 %}
+                        <div class="pro-nav-thumb">
+                            <img src="/media/{{product.picture4}}"  alt="product-details" />
+                        </div>
+                    {% endif %}
+                </div>
+                <!--// Product Details Left -->
+            </div>
+
+            <div class="col-lg-7 col-md-6">
+                <div class="product-details-view-content">
+                    <div class="product-info">
+                        <h3>{{product.name}}</h3>
+                        <div class="price-box">
+                            {% if product.off_price %}
+                                <span class="new-price">{{product.off_price}} تومان</span>
+                                <span class="old-price">{{product.price}} تومان</span>
+                            {% else %}
+                                <span class="price">{{product.price}} تومان</span>
+                            {% endif %}
+                            
+                            
+                        </div>
+                        <p>
+                            {{product.tags.all|join:", "}}
+                        </p>
+
+                        <div class="single-add-to-cart">
+                            <form action="{% url 'cart.add' product.id 2 %}" method="POST" class="cart-quantity d-flex">
+                                {% csrf_token %}
+                                <div class="quantity">
+                                    <div class="cart-plus-minus">
+                                        <select name="quantity" class="form-control ">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                            <option value="10">10</option>
+                                            <option value="11">11</option>
+                                            <option value="12">12</option>
+                                            <option value="13">13</option>
+                                            <option value="14">14</option>
+                                            <option value="15">15</option>
+                                            <option value="17">17</option>
+                                            <option value="18">18</option>
+                                            <option value="19">19</option>
+                                            <option value="20">20</option>
+                                  
+                            
+                                        </select>
+                        
+                                    </div>
+                                </div>
+                                <form method="post" action="{% url 'cart.add' product.id 2  %}">
+                                    {% csrf_token %}
+                                    <input type="submit" class="add-to-cart" value="افزودن به سبد">
+                                </form>
+                            </form>
+                        </div>
+                        <ul class="single-add-actions">
+   
+                         
+                        </ul>
+                        <ul class="stock-cont">
+                            <li class="product-stock-status">دسته&zwnj;بندی : <a href="#">{{product.category}}</a></li>
+                            <li class="product-stock-status">برند : <a href="#">{{product.brand}}</a></li>
+                        </ul>
+                      
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="product-description-area section-pt">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="product-details-tab">
+                        <ul role="tablist" class="nav">
+                            <li class="active" role="presentation">
+                                <a data-bs-toggle="tab" role="tab" href="#description" class="active">توضیحات</a>
+                            </li>
+                            <li role="presentation">
+                                <a data-bs-toggle="tab" role="tab" href="#reviews">دیدگاه مشتریان</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="product_details_tab_content tab-content">
+                        <!-- Start Single Content -->
+                        <div class="product_tab_content tab-pane active" id="description" role="tabpanel">
+                            <div class="product_description_wrap  mt-30">
+                                <div class="product_desc mb-30">
+                                    {{product.description|safe|linebreaks}}
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- End Single Content -->
+                        <!-- Start Single Content -->
+                        <div class="product_tab_content tab-pane" id="reviews" role="tabpanel">
+                            {% if product.comments %}
+                            {% for cm in product.comments.all %}
+                                <div class="review_address_inner mt-30">
+                                    <!-- Start Single Review -->
+                                    <div class="pro_review">
+                                    
+                                        <div class="review_details">
+                                            <div class="review_info mb-10">
+                                            
+                                                <h5>{{cm.user.first_name}} {{cm.user.last_name}}<span></span></h5>
+
+                                            </div>
+                                            <p>{{cm.body}}</p>
+                                        </div>
+
+                                        
+                                    </div>
+                                    
+                                    <!-- End Single Review -->
+                                </div>
+                            {% endfor %}
+                            {% endif %}
+
+                
+                      
+                            <!-- Start RAting Area -->
+                            {% if user.is_authenticated %}
+                            <div class="rating_wrap mt-50">
+                                <h5 class="rating-title-1">دیدگاه خود را بیان کنید </h5>
+                                <p>آدرس ایمیل شما منتشر نخواهد شد.  *</p>
+                           
+                            </div>
+                            {% endif %}
+                            <!-- End RAting Area -->
+                            <div class="comments-area comments-reply-area">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <form action="{% url 'add.comment' product.slug %}" method="post" class="comment-form-area">
+                                            {% csrf_token %}
+                                            {% if user.is_authenticated %}
+                                                <div class="comment-form-comment mt-15">
+                                                    <label>متن پیام</label>
+                                                    <textarea class="comment-notes" name="body" required="required"></textarea>
+                                                </div>
+                                                <div class="comment-form-submit mt-15">
+                                                    <input type="submit" value="ارسال دیدگاه" class="comment-submit">
+                                                </div>
+                                            
+                                            {% else %}
+                                            <div class="comment-form-comment mt-15">
+                                            
+                                                <h4>شما مجاز به منتشر کردن دیدگاه نیستید لطفا ابتدا وارد حساب کاربری خود شوید</h4>
+                                            </div>
+                                            {% endif %}
+
+
+                                         
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Single Content -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="related-product-area section-pt ltr">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title">
+                        <h3> محصولات مرتبط</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="row row-8 product-row-6-active">
+                {% for product in smproducts  %}
+                    <div class="product-col">
+                        <!-- Single Product Start -->
+                        <div class="single-product-wrap mt-10">
+                            <div class="product-image">
+                                <a href="product-details.html"><img src="/media/{{product.picture}}" width="236" heigh="236" alt="{{product.name}}"></a>
+                                {% if product.is_amazing %}
+                                    <span class="onsale">فروش ویژه</span>
+                                {% endif %}
+                            </div>
+                       
+                            <div class="product-content">
+                                <div class="price-box">
+                                    {% if product.off_price %}
+                                        <span class="new-price">{{product.off_price}} تومان</span>
+                                    {% endif %}
+                                    <span class="old-price">{{product.price}}</span>
+                                   
+                                </div>
+                                <h6 class="product-name"><a href="{% url 'get.single.product'  product.slug %}">{{product.name}}</a></h6>
+
+                                <div class="product-button-action">
+                                
+                                      
+                                        <a href="{% url 'get.single.product'  product.slug %}" class="add-to-cart">مشاهده محصول</a>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Single Product End -->
+                    </div>
+                {% endfor %}
+            
+          
+               
+     
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- main-content-wrap end -->
+
+{% endblock content %}

@@ -1,0 +1,194 @@
+{% extends 'base.html' %}
+
+{% block title %}قروشگاه رند - وبلاگ{% endblock title %}
+{% block cart %}
+<div class="shopping-cart-wrap">
+    <a href="#"> <span class="cart-total-amunt">{{cart.get_total_price}} تومان</span><i class="icon-shopping-bag2 float-left"></i><span class="cart-total">{{cart|length}}</span></a>
+    <ul class="mini-cart">
+        {% for item in cart %}
+            <li class="cart-item">
+                <div class="cart-image">
+                    <a href="{% url 'get.single.product' item.product.slug %}"><img alt="{{item.product.name}}" src="/media/{{item.product.picture}}" width="80" height="80"></a>
+                </div> 
+                <div class="cart-title">
+                    <a href="single-product.html">
+                        <h4>{{item.product.name}}</h4>
+                    </a>
+                    <div class="quanti-price-wrap">
+                        <span class="quantity">{{item.quantity}} ×</span>
+                        <div class="price-box"><span class="new-price">{{item.price}} تومان</span></div>
+                    </div>
+                    <a class="{% url 'cart.remove' item.product.id %}" href="#"><i class="icon-x"></i></a>
+                </div>
+            </li>
+        {% endfor %}
+  
+        <li class="subtotal-box">
+            <div class="subtotal-title">
+                <h3>جمع کل :</h3><span>{{cart.get_total_price}} تومان</span>
+            </div>
+        </li>
+        <li class="mini-cart-btns">
+            <div class="cart-btns">
+                <a href="{% url 'cart.detail' %}">مشاهده سبد</a>
+                <a href="{% url 'order.create' %}">پرداخت</a>
+            </div>
+        </li>
+    </ul>
+</div>
+{% endblock cart %}
+{% block content %}
+    <!-- breadcrumb-area start -->
+    <div class="breadcrumb-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <!-- breadcrumb-list start -->
+                    <ul class="breadcrumb-list">
+                        <li class="breadcrumb-item"><a href="{% url 'home' %}">صفحه اصلی</a></li>
+                        <li class="breadcrumb-item active">وبلاگ</li>
+                    </ul>
+                    <!-- breadcrumb-list end -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- breadcrumb-area end -->
+
+
+    <!-- main-content-wrap start -->
+    <div class="main-content-wrap shop-page section-ptb">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 order-lg-2 order-2">
+                    <!-- blog-sidebar-wrap start -->
+                    <div class="blog-sidebar-wrap">
+                        <div class="blog-sidebar-widget-area">
+
+                            <!--single-widget start  -->
+                            <div class="single-widget search-widget mb-30">
+                                <h4 class="widget-title">فیلتر جستجو</h4>
+                                <form action="{% url 'blog.search' %}" method="POST">
+                                    {% csrf_token %}
+                                    <div class="form-input">
+                                        <input type="text" name="title" placeholder="جستجو...">
+                                        <button class="button-search" type="submit"><i class="icon-search"></i></button>
+                                    </div>
+                                </form>
+                            </div>
+                            <!--single-widget start end -->
+
+                            <!--single-widget start  -->
+                            <div class="single-widget mb-30">
+                                <h4 class="widget-title">دسته بندی</h4>
+                                <!-- category-widget start -->
+                                <div class="category-widget-list">
+                                    <ul>
+                                        {% for category in categories  %}
+                                            <li><a href="{% url 'get.post.category' category.slug %}">{{category.name}}</a></li>
+                                        {% endfor %}
+                                     
+                                    </ul>
+                                </div>
+                                <!-- category-widget end -->
+                            </div>
+                            <!--single-widget end  -->
+
+                            <!--single-widget start  -->
+                            <div class="single-widget mb-30">
+                                <h4 class="widget-title">مطالب اخیر</h4>
+                                {% load jalali_tags %}
+                                <div class="recent-post-widget">
+                                    {% for post in lp %}
+                                    <div class="single-widget-post">
+                                        <div class="post-thumb">
+                                            <a href="{% url 'get.post' post.slug %}"><img width="80" height="80" src="/media/{{post.picture}}" alt="{{post.name}}"></a>
+                                        </div>
+                                        <div class="post-info">
+                                            <h6 class="post-title"><a href="{% url 'get.post' post.slug %}">{{post.title}}</a></h6>
+                                            <div class="post-date">{{post.created_at|to_jalali:'%y/%m/%d'}}</div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+
+                            </div>
+                            <!--single-widget end  -->
+                            
+
+         
+
+                        </div>
+                    </div>
+                    <!-- blog-sidebar-wrap end -->
+                </div>
+                <div class="col-lg-9 order-lg-1 order-1">
+                    <div class="blog-wrapper">
+                        <div class="row">
+                            {% for post in posts  %}
+                                <div class="col-lg-6">
+                                    <!-- single-blog-wrap Start -->
+                                    <div class="single-blog-wrap mb-40">
+                                        <div class="latest-blog-image">
+                                            <a href="{% url 'get.post' post.slug %}"><img width="500" height="220" src="/media/{{post.picture}}" alt="{{post.name}}"></a>
+                                        </div>
+                                        <div class="latest-blog-content mt-20">
+                                            <h4><a href="{% url 'get.post' post.slug %}">{{post.title}}</a></h4>
+                                            <ul class="post-meta">
+                                                <li class="post-author">مدیر</li>
+                                                <li class="post-date">{{post.created_at|to_jalali:'%y/%m/%d'}}</li>
+                                            </ul>
+                                            <p>{{post.body|safe|truncatewords:30}}</p>
+                                            <div class="blog-read-more">
+                                                <a href="{% url 'get.post' post.slug %}">ادامه مطلب</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- single-blog-wrap End -->
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <!-- paginatoin-area start -->
+                        <div class="paginatoin">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12">
+                                
+                                        {% if posts.has_other_pages %}
+                                        <ul class=" pagination ">
+                                                {% if posts.has_previous %}
+                                                <li class="page-item"><a class="page-link" href="?page={{ posts.previous_page_number }}">&laquo;</a></li>
+                                                {% else %}
+                                                <li class="page-item disabled">
+                                                    <a class="page-link" href="#">&laquo;</a></li>
+                                                {% endif %}
+                                                {% for i in posts.paginator.page_range %}
+                                                {% if posts.number == i %}
+                                                    
+                                                    <li class="page-item"><a class="page-link" href="#">{{ i }} </a></li>
+                                                {% else %}
+                                                    <li class="page-item"><a class="page-link" href="?page={{ i }}" >{{ i }}</a></li>
+                                                {% endif %}
+                                                {% endfor %}
+                                                {% if posts.has_next %}
+                                                <li class="page-item"><a class="page-link " href="?page={{ posts.next_page_number }}">&raquo;</a></li>
+                                                {% else %}
+                           
+                                                <li class="page-item disabled"><a class="page-link" href="#">&raquo;</a></li>
+                                                {% endif %}
+                                        </ul>
+                                 
+                                        {% endif %}
+                                     
+                                 
+                                </div>
+                            </div>
+                        </div>
+                        <!-- paginatoin-area end -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- main-content-wrap end -->
+
+{% endblock content %}

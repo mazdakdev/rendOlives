@@ -1,0 +1,325 @@
+{% extends './dbase.html' %}
+
+{% block title %}
+صفحه کاربری | پروفایل
+{% endblock title %}
+
+{% block content %}
+<div id="main-wrapper">
+
+    <!--**********************************
+        Header start
+    ***********************************-->
+    <div class="header">
+        <div class="header-content">
+            <nav class="navbar navbar-expand">
+                <div class="collapse navbar-collapse justify-content-between">
+                    <div class="header-left">
+                        <div class="search_bar dropdown">
+                            <h3>rendolives.ir</h3>
+                        </div>
+                    </div>
+
+                    <ul class="navbar-nav header-right">
+                        
+                        
+                        <li class="nav-item dropdown header-profile">
+                            <div class="dropdown mr-5  ">
+                                <a href="#" class="btn btn-primary light sharp " data-toggle="dropdown" aria-expanded="true"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"></rect><circle fill="#000000" cx="5" cy="12" r="2"></circle><circle fill="#000000" cx="12" cy="12" r="2"></circle><circle fill="#000000" cx="19" cy="12" r="2"></circle></g></svg></a>
+                                <ul class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; will-change: transform; top: 0px; left: 100px; transform: translate3d(-169px, 30px, 0px);">
+                                    <li class="dropdown-item"><i class="fa fa-logout text-primary mr-2"></i> <a href="{% url 'profile' %}">خانه</a></li>
+                                    <li class="dropdown-item"><i class="fa fa-logout text-primary mr-2"></i> <a href="{% url 'logout' %}">خروج از حساب</a></li>
+                                    <a href="{% url 'orders' %}"> <li class="dropdown-item"><i class="fa  text-primary mr-2"></i>سفارشات</li></a>
+                                    <a href="{% url 'admin.products' %}">   <li class="dropdown-item"><i class="fa  text-primary mr-2"></i> محصولات</li></a>
+                                
+                                    <a href="{% url 'admin.product.create' %}"><li class="dropdown-item"><i class="fa  text-primary mr-2"></i> ساخت محصول جدید</li></a>
+                                    <a href="{% url 'user.posts' %}"><li class="dropdown-item"><i class="fa  text-primary mr-2"></i>پست ها</li></a>
+                                    <a href="{% url 'admin.post.create' %}"><li class="dropdown-item"><i class="fa  text-primary mr-2"></i> ساخت پست جدید</li></a>
+                                    <a href="{% url 'admin.categories' %}">   <li class="dropdown-item"><i class="fa  text-primary mr-2"></i>دسته بندی ها</li></a>
+                                    <a href="{% url 'admin.category.create' %}">   <li class="dropdown-item"><i class="fa  text-primary mr-2"></i> ساخت دسته بندی جدید</li></a>
+                                    <a href="{% url 'admin.comments' %}">   <li class="dropdown-item"><i class="fa  text-primary mr-2"></i>کامنت ها</li></a>
+                                    <a href="{% url 'web.info' %}">   <li class="dropdown-item"><i class="fa  text-primary mr-2"></i>مشخصات وبسایت</li></a>
+                                    <a href="{% url 'admin.brands' %}">   <li class="dropdown-item"><i class="fa  text-primary mr-2"></i>برند ها</li></a>
+                                    <a href="{% url 'admin.create.brand' %}">   <li class="dropdown-item"><i class="fa  text-primary mr-2"></i>ساخت برند جدید</li></a>
+                        
+
+                                </ul>
+                            </div>
+                            <a class="nav-link" href="#" role="button" >
+                         
+                                <div class="header-info">
+                                        <span>سلام, <strong> {{user}} جان  </strong></span>
+                                        <small>به صفحه شخصی خودت خوش آمدی</small>
+                               
+                    
+                                </div>
+                            
+                            </a>
+                    
+                        </li>
+                
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <!--**********************************
+        Header end ti-comment-alt
+    ***********************************-->
+
+
+    <!--**********************************
+        Content body start
+    ***********************************-->
+    <div class="content-body">
+
+
+        <div class="container">
+            <div class="row page-titles mx-0">
+                <div class="col-sm-6 p-md-0">
+                    <div class="welcome-text">
+                        <h4>سلام، خوش آمدید</h4>
+                        <p class="mb-0">صفحه کاربری اختصاصی شما</p>
+                    </div>
+                </div>
+                <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="http://rendolives.ir">rendolives.ir </a></li>
+                        <li class="breadcrumb-item active"><a href="{% url 'profile' %}">پروفایل</a></li>
+                    </ol>
+                </div>
+            </div>
+            <div class="row">
+            
+
+
+                <div class="col-xl-6 col-lg-6 col-sm-6">
+                    <div class="widget-stat card">
+                        <div class="card-body p-4">
+                            <div class="media ai-icon">
+                                <span class="mr-3">
+                                    <svg id="icon-orders" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text">
+                                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                        <polyline points="14 2 14 8 20 8"></polyline>
+                                        <line x1="16" y1="13" x2="8" y2="13"></line>
+                                        <line x1="16" y1="17" x2="8" y2="17"></line>
+                                        <polyline points="10 9 9 9 8 9"></polyline>
+                                    </svg> 							</span>
+                                <div class="media-body">
+                                    <p class="mb-1">سفارشات جاری</p>
+                                    <h4 class="mb-0">{{current_orders.count}}</h4>
+                                
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-6 col-lg-6 col-sm-6">
+                    <div class="widget-stat card">
+                        <div class="card-body p-4">
+                            <div class="media ai-icon">
+                                <span class="mr-3">
+                                    <!-- <i class="ti-user"></i> -->
+                                    <svg id="icon-customers" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user">
+                                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                        <circle cx="12" cy="7" r="4"></circle>
+                                    </svg> 							</span>
+                                <div class="media-body">
+                                    <p class="mb-1">تعداد کل کاربران</p>
+                                    <h4 class="mb-0">{{user_count}}</h4>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+          
+            
+
+
+                <div class="col-lg-12 col-md-6 col-xs-12">
+                    <div class="card">
+                        <div class="card-header border-0 pb-0">
+                            <h4 class="card-title">صف پرداختهای اخیر</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-responsive-sm mb-0">
+                                    <thead>
+                                        <tr>
+                                       
+                                            <th><strong>تاریخ </strong></th>
+                                            <th><strong>مبلغ </strong></th>
+                                            <th><strong>کد رهگیری </strong></th>
+                                            <th><strong>وضعیت </strong></th>
+                                          
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for payment in payments %}
+                                            <tr>
+                                                {% load jalali_tags %}
+                                                <td>{{payment.created_at|to_jalali:'%y/%m/%d - %H:%M:%S'}}</td>
+                                                <td><b>{{payment.amount}} ریال</b></td>
+                                                <td>{{payment.tracking_code}}</td>
+                                               
+                                                {% if payment.status == "Complete" %}
+                                                    <td class="recent-stats d-flex align-items-center"><i class="fa fa-circle text-success mr-1"></i>موفقیت</td>
+                                                {% elif  payment.status == "Cancel by user" %}
+                                                    <td class="recent-stats d-flex align-items-center"><i class="fa fa-circle text-danger mr-1"></i>لغو شده</td>
+                                                {% else %}
+                                                <td class="recent-stats d-flex align-items-center"><i class="fa fa-circle text-primary mr-1"></i>{{payment.status}}</td>
+                                                {% endif %}
+  
+                                            </tr>
+                                        {% endfor %}
+                               
+                                   
+                                 
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-sm mb-0">
+                                    <thead>
+                                        <tr>
+                                   
+                                                               
+                                            <th class="align-middle">
+                                                <form method="POST" action="{% url 'search.order' %}">
+                                                    {% csrf_token %}
+                                                    <input class="form-control" type="search" name="name" placeholder="جستجو" aria-label="Search">
+                                                </form>
+                                            </th>
+                                            <th class="align-middle">سفارش</th>
+                                            <th class="align-middle pr-7">تاریخ </th>
+                                            <th class="align-middle" style="min-width: 12.5rem;">ارسال به</th>
+                                            <th class="align-middle text-right">وضعیت</th>
+                                            <th class="align-middle text-right">وضعیت پرداخت</th>
+                                            <th class="align-middle text-right">هزینه</th>
+                                            <th class="align-middle text-right">نحوه ارسال</th>
+                                            <th class="no-sort"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="orders">
+                        
+                                        {% load jalali_tags %}
+                                        {% for order in orders %}
+                                        <tr class="btn-reveal-trigger">
+                          
+                                            <td class=""></td>
+                                            <td class="py-2">
+                                                <a href="#">
+                                                    <strong>#{{order.order_id}}</strong></a> توسط <strong>{{order.first_name}} {{order.last_name}}</strong><br><a href="mailto:{{order.email}}">۰{{order.email}}</a><br /><a href="#">{{order.phone_num}}</a><br><a href="#">{{order.extra_desc}}</a></td>
+                                            <td class="py-2">{{order.created_at|to_jalali:'%y/%m/%d - %H:%M:%S'}}</td>
+                                            <td class="py-2">{{order.country}} , {{order.ostan}} , {{order.city}} , {{order.address}}
+                                                <br>
+                                                کد پستی :{{order.postal_code}}
+                                   
+                                            </td>
+                                            {% if order.status == "در حال انجام" %}
+                                                <td class="py-2 text-right"><span class="badge badge-primary">{{order.status}}<span
+                                                    class="ml-1 fa fa-work"></span></span>
+                                                </td>   
+                                            {% elif order.status == "تکمیل شده" %}
+                                                <td class="py-2 text-right"><span class="badge badge-success">{{order.status}}<span
+                                                    class="ml-1 fa fa-check"></span></span>
+                                                </td> 
+                                            {% elif order.status == "لغو شده" %}
+                                                <td class="py-2 text-right"><span class="badge badge-danger">{{order.status}}<span
+                                                    class="ml-1 fa fa-check"></span></span>
+                                                </td> 
+                                            {% elif order.status == "معلق" %}
+                                                <td class="py-2 text-right"><span class="badge badge-warning">{{order.status}}<span
+                                                    class="ml-1 fa fa-close"></span></span>
+                                                </td> 
+                                            {% endif %}
+                                            
+                                            {% if order.is_paid %}
+                                                <td class="py-2 text-right">
+
+                                                    <span class="badge badge-success">پرداخت شده<span
+                                                        class="ml-1 fa fa-check"></span></span>
+                                                </td>
+                                            {% else %}
+                                                <td class="py-2 text-right">
+
+                                                    <span class="badge badge-danger">پرداخت نشده<span
+                                                        class="ml-1 fa fa-close"></span></span>
+                                                </td>
+                                            {% endif %}
+                                            <td class="py-2 text-right">{{order.get_total_cost}} تومان
+                                            </td>
+                                      
+                                            <td>{{order.method}}</td>
+                                            <td class="py-2 text-right">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <a href="{% url 'admin.order' order.id %}" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-eye"></i></a>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                       
+                                                        <div class="dropdown text-sans-serif"><button class="btn btn-primary tp-btn-light sharp" type="button" id="order-dropdown-0" data-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><span><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"></rect><circle fill="#000000" cx="5" cy="12" r="2"></circle><circle fill="#000000" cx="12" cy="12" r="2"></circle><circle fill="#000000" cx="19" cy="12" r="2"></circle></g></svg></span></button>
+                                                            <div class="dropdown-menu dropdown-menu-right border py-0" aria-labelledby="order-dropdown-0">
+                                                                <div class="py-2"><a class="dropdown-item" href="{% url 'admin.change.order' order.id 2 %}">تکمیل شده</a><a class="dropdown-item" href="{% url 'admin.change.order' order.id 1 %}">در حال انجام</a><a class="dropdown-item" href="{% url 'admin.change.order' order.id 4 %}">معلق</a><a class="dropdown-item" href="{% url 'admin.change.order' order.id 3 %}">لغو شده</a>
+                                                                    <div class="dropdown-divider"></div><a class="dropdown-item text-danger" href="{% url 'admin.delete.order' order.id %}" onclick="return confirm('آیا مطمعن هستید ؟ هشدار این عمل قابل بازگشت نیست')">حذف</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+   
+    
+
+    </div>
+
+    <!--**********************************
+        Footer start
+    ***********************************-->
+    <div class="footer">
+        <div class="copyright">
+            <p>Developed with ❤️ by <a href="https://github.com/mazdakdev">Mazdak</a> </p>
+        </div>
+    </div>
+    <!--**********************************
+        Footer end
+    ***********************************-->
+
+    <!--**********************************
+       Support ticket button start
+    ***********************************-->
+
+    <!--**********************************
+       Support ticket button end
+    ***********************************-->
+
+    
+</div>
+{% endblock content %}

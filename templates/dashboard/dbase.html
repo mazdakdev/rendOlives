@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>{% block title %}{% endblock title %}</title>
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon.png' %}">
+    	<link href="{% static 'vendor/bootstrap-select/dist/css/bootstrap-select.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+	<script src="{% static 'c371c8ae29.js' %}" ></script>
+    <link rel="stylesheet" href="{% static 'vendor/chartist/css/chartist.min.css' %}">
+    <link href="{% static 'vendor/summernote/summernote.css' %}" rel="stylesheet">
+    <link href="{% static 'vendor/datatables/css/jquery.dataTables.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'trumbowyg.min.css' %}">
+    <script src="https://cdn.tiny.cloud/1/y5n3emb626qej7lfzw9el16szcwn4cj2sdcjoz9ay90waz32/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
+
+</head>
+
+<body>
+
+    <!--*******************
+        Preloader start
+    ********************-->
+    <div id="preloader">
+        <div class="sk-three-bounce">
+            <div class="sk-child sk-bounce1"></div>
+            <div class="sk-child sk-bounce2"></div>
+            <div class="sk-child sk-bounce3"></div>
+        </div>
+    </div>
+
+
+    {% block content %}
+    
+    {% endblock content %}
+    <!--**********************************
+        Scripts
+    ***********************************-->
+    <!-- Required vendors -->
+    <script src="{% static 'vendor/global/global.min.js' %}"></script>
+	<script src="{% static 'vendor/bootstrap-select/dist/js/bootstrap-select.min.js' %}"></script>
+    <script src="{% static 'vendor/chart.js/Chart.bundle.min.js' %}"></script>
+    <script src="{% static 'js/custom.min.js' %}"></script>
+	<script src="{% static 'js/deznav-init.js' %}"></script>
+	<!-- Apex Chart -->
+	<script src="{% static 'vendor/apexchart/apexchart.js' %}"></script>
+    
+
+	<!-- Svganimation scripts -->
+	<script src="{% static 'vendor/svganimation/vivus.min.js' %}"></script>
+    <script src="{% static 'vendor/svganimation/svg.animation.js' %}"></script>
+
+
+
+	<!-- Chartist -->
+    <script src="{% static 'vendor/chartist/js/chartist.min.js' %}"></script>
+    <script src="{% static 'vendor/chartist-plugin-tooltips/js/chartist-plugin-tooltip.min.js' %}"></script>
+    
+	<!-- Flot -->
+    <script src="{% static 'vendor/flot/jquery.flot.js' %}"></script>
+    <script src="{% static 'vendor/flot/jquery.flot.pie.js' %}"></script>
+    <script src="{% static 'vendor/flot/jquery.flot.resize.js' %}"></script>
+    <script src="{% static 'vendor/flot-spline/jquery.flot.spline.min.js' %}"></script>
+	
+	<!-- Chart sparkline plugin files -->
+    <script src="{% static 'js/plugins-init/sparkline-init.j' %}"></script>
+	<script src="{% static 'js/plugins-init/sparkline-init.js' %}"></script>
+	
+	<!-- Chart piety plugin files -->
+    <script src="{% static 'vendor/peity/jquery.peity.min.js' %}"></script>
+	<script src="{% static 'js/plugins-init/piety-init.js' %}"></script>
+	
+    <!-- Init file -->
+    <script src="{% static 'js/plugins-init/widgets-script-init.js' %}"></script>
+
+	<!-- Svganimation scripts -->
+    <script src="{% static 'vendor/svganimation/vivus.min.js' %}"></script>
+    <script src="{% static 'vendor/svganimation/svg.animation.js' %}"></script>
+
+    <script src="{% static 'vendor/summernote/js/summernote.min.js' %}"></script>
+    <!-- Summernote init -->
+ 
+    <script src="{% static 'vendor/datatables/js/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'js/plugins-init/datatables.init.js' %}"></script>
+  
+    <script src="{% static 'trumbowyg.min.js' %}"></script>
+
+  
+
+	<script>{% block script %}{% endblock script %}</script>
+ 
+		
+</body>
+
+
+</html>

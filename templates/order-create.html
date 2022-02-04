@@ -1,0 +1,277 @@
+{% extends 'base.html' %}
+
+{% block cart %}
+<div class="shopping-cart-wrap">
+    <a href="#"> <span class="cart-total-amunt">{{cart.get_total_price}} تومان</span><i class="icon-shopping-bag2 float-left"></i><span class="cart-total">{{cart|length}}</span></a>
+    <ul class="mini-cart">
+        {% for item in cart %}
+            <li class="cart-item">
+                <div class="cart-image">
+                    <a href="{% url 'get.single.product' item.product.slug %}"><img alt="" src="/media/{{item.product.picture}}" width="80" height="80"></a>
+                </div> 
+                <div class="cart-title">
+                    <a href="single-product.html">
+                        <h4>{{item.product.name}}</h4>
+                    </a>
+                    <div class="quanti-price-wrap">
+                        <span class="quantity">{{item.quantity}} ×</span>
+                        <div class="price-box"><span class="new-price">{{item.price}} تومان</span></div>
+                    </div>
+                    <a class="{% url 'cart.remove' item.product.id %}" href="#"><i class="icon-x"></i></a>
+                </div>
+            </li>
+        {% endfor %}
+  
+        <li class="subtotal-box">
+            <div class="subtotal-title">
+                <h3>جمع کل :</h3><span>{{cart.get_total_price}} تومان</span>
+            </div>
+        </li>
+        <li class="mini-cart-btns">
+            <div class="cart-btns">
+                <a href="{% url 'cart.detail' %}">مشاهده سبد</a>
+                <a href="{% url 'order.create' %}">پرداخت</a>
+            </div>
+        </li>
+    </ul>
+</div>
+{% endblock cart %}
+{% block title %}
+فروشگاه اینترنتی رند - ثبت سفارش
+{% endblock title %}
+{% block content %}
+<div class="breadcrumb-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <!-- breadcrumb-list start -->
+                <ul class="breadcrumb-list">
+                    <li class="breadcrumb-item"><a href="index.html">صفحه اصلی</a></li>
+                    <li class="breadcrumb-item active">پرداخت</li>
+                </ul>
+                <!-- breadcrumb-list end -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- breadcrumb-area end -->
+
+
+<!-- main-content-wrap start -->
+<div class="main-content-wrap section-ptb checkout-page">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="coupon-area">
+                
+                    <!-- coupon-accordion end -->
+                    <!-- coupon-accordion start -->
+               
+                    <!-- coupon-accordion end -->
+                </div>
+            </div>
+        </div>
+        <form action="{% url 'order.create' %}" method="post">
+            {% csrf_token %}
+        <!-- checkout-details-wrapper start -->
+        <div class="checkout-details-wrapper">
+            <div class="row">
+                <div class="col-lg-6 col-md-6">
+                    <!-- billing-details-wrap start -->
+                    <div class="billing-details-wrap">
+                        
+                       
+                            <h3 class="shoping-checkboxt-title">جزئیات صورتحساب</h3>
+                            <div class="row">
+                                {% if form.errors %}
+                                <div class="alert alert-danger solid alert-rounded "><strong>ارور!</strong> لطفا همه فیلد های مورد نیاز را پر کنید</div>
+                                {% endif %}
+                                <div class="col-lg-6">
+                                    <p class="single-form-row">
+                                        <label>نام<span class="required">*</span></label>
+                                        <input  type="text" name="first_name" value="{{user.first_name}}">
+                                    </p>
+                                </div>
+                                <div class="col-lg-6">
+                                    <p class="single-form-row">
+                                        <label> نام خانوادگی <span class="required">*</span></label>
+                                        <input  type="text" name="last_name" value="{{user.last_name}}">
+                                    </p>
+                                </div>
+                              
+                                <div class="col-lg-6">
+                                    <p class="single-form-row">
+                                        <label>نام شرکت</label>
+                                        <input  type="text" name="company" value="{{address.company}}">
+                                    </p>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="single-form-row">
+                                        <label>کشور <span class="required">*</span></label>
+                                        <input  type="text" name="country"  value="{{address.country}}">
+                                    
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <p class="single-form-row">
+                                        <label>آدرس <span class="required">*</span></label>
+                                        <input type="text"  name="address"  value="{{address.address}}">
+                                    </p>
+                                </div>
+                                <div class="col-lg-12">
+                                    <p class="single-form-row">
+                                        <label>کد پستی </label>
+                                        <input type="text"  name="postal_code"  value="{{address.postal_code}}">
+                                    </p>
+                                </div>
+                                <div class="col-lg-6">
+                                    <p class="single-form-row">
+                                        <label>شهر <span class="required">*</span></label>
+                                        <input type="text" name="city"  value="{{address.city}}">
+                                    </p>
+                                </div>
+                                <div class="col-lg-6">
+                                    <p class="single-form-row">
+                                        <label>استان <span class="required">*</span> </label>
+                                        <input type="text" name="ostan"  value="{{address.ostan}}">
+                                    </p>
+                                </div>
+                                <div class="col-lg-12">
+                                    <p class="single-form-row">
+                                        <label>شماره تماس</label>
+                                        <input type="text" name="phone_num" placeholder="9123456789"  value="{{address.phone_num}}">
+                                    </p>
+                                </div>
+                                <div class="col-lg-12">
+                                    <p class="single-form-row">
+                                        <label>ایمیل </label>
+                                        <input  type="text" name="email" value="{{user.email}}">
+                                    </p>
+                                </div>
+                
+                                <div class="col-lg-12">
+                                    <p class="single-form-row m-0">
+                                        <label>توضیحات سفارش</label>
+                                        <textarea placeholder="" name="extra_desc" class="checkout-mess" rows="2" cols="5"></textarea>
+                                    </p>
+                                </div>
+                            </div>
+                       
+                    </div>
+                    <!-- billing-details-wrap end -->
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <!-- your-order-wrapper start -->
+                    <div class="your-order-wrapper">
+                        <h3 class="shoping-checkboxt-title">سفارش شما</h3>
+                        <!-- your-order-wrap start-->
+                        <div class="your-order-wrap">
+                            <!-- your-order-table start -->
+                            <div class="your-order-table table-responsive">
+                                <table>
+                                    <thead>
+                                    <tr>
+                                        <th class="product-name">محصول</th>
+                                        <th class="product-total">جمع کل</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                
+                                    {% for item in cart %}
+                                        <tr class="cart_item">
+                                            <td class="product-name">
+                                                {{item.product.name}}<strong class="product-quantity"> × {{item.quantity}}</strong>
+                                            </td>
+                                            <td class="product-total">
+                                                <span class="amount">{{item.total_price}} تومان</span>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                           
+                                    </tbody>
+                                    <tfoot>
+                                        {% if cart.get_total_price > 1000000 %}
+                                            <tr class="cart-subtotal">
+                                                <th>حمل و نقل</th>
+                                                <td><span class="amount" id="pay">ارسال رایگان</span></td>
+                                          
+                                        
+                                            </tr>
+                                            <input type="hidden" name="method" value="ارسال رایگان">
+                                        {% else %}
+                                        <tr class="cart-subtotal">
+                                            <th>حمل و نقل</th>
+                                            <td><span class="amount" id="pay">۵۰۰۰۰ تومان</span></td>
+                                            <input type="hidden" name="method" value="ارسال معمولی">
+                                        </tr>
+                                       
+                                        {% endif %}
+ 
+                       
+                                    <tr class="order-total">
+                                        <th>جمع کل	</th>
+                                            {% if cart.get_total_price > 1000000 %}
+                                                <td><strong><span class="amount" id="total">{{cart.get_total_price}} تومان</span></strong>
+                                            {% else %}
+                                            {% load pricetag %}
+                                                <td><strong><span class="amount" id="total">{% add cart.get_total_price 50000 %} تومان</span></strong>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                            <!-- your-order-table end -->
+
+                            <!-- your-order-wrap end -->
+                            <div class="payment-method">
+                                <div class="payment-accordion">
+                                    <!-- ACCORDION START -->
+                                    <h5>نحوه ارسال</h5>
+                                    <div class="payment-content">
+                                        <p>به منظور کامل کردن شرایط ارسال و راحتی شما مشتریان عزیز, طبق توافق مابین اداره پست ایران و تیباکس  و کارخانه مجموعه زیتون رند رودبار با درنظر داشتن ارسال مرسولات مایع و شکستنی, این امکان برای مشتریان عزیز مهیا شد تا بتوانیم تمامی محصولات زیتون رند رودبار را بدون هیچ محدودیتی به دست شما عزیزان با کمترین هزینه برسانیم.
+                                            در شرایط اضطراری, مشتریان عزیزی که میخواهند مرسوله در کمترین زمان به دستشان برسد از طریق تیپاکس ارسال میشود و هزینه ارسال مرسوله به عهده مشتری میباشد و این هزینه با توجه به وزن (وزن محصول + وزن مایع) و آدرس مقصد کاملا متغییر هست.
+                                             لذت تکرار یک خرید با  مجموعه فروشگاه های رند  ( دوقلوها)  رودبار</p>
+                                        <input type="checkbox" class="" name="method" value="تیپاکس" id="chh" onclick="ch()">   ارسال با تیپاکس ؟
+                                    </div>
+                                
+                                    <!-- ACCORDION END -->
+                                </div>
+                                <div class="order-button-payment">
+                                    <input type="submit" value="ثبت سفارش"/>
+                                </div>
+                            </div>
+                            <!-- your-order-wrapper start -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- checkout-details-wrapper end -->
+    </form>
+    </div>
+</div>
+
+{% endblock content %}
+
+{% block script %}
+<script type="text/javascript">
+    function ch(){
+        var chh = document.getElementById("chh");
+        var pay = document.getElementById("pay");
+        var pre = pay.innerText;
+        var total = document.getElementById("total");
+        if(chh.checked == true){
+            pay.innerHTML = "ارسال با تیپاکس";
+            total.innerHTML = "{{cart.get_total_price}} تومان"
+        } else{
+          pay.innerText = "تعرفه قبلی (رفرش کنید)";
+          
+          total.innerHTML = "{% add cart.get_total_price 50000 %} تومان"
+          
+
+        }
+    }
+</script>
+{% endblock script %}
+ 

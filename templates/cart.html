@@ -1,0 +1,148 @@
+{% extends 'base.html' %}
+
+{% block cart %}
+<div class="shopping-cart-wrap">
+    <a href="#"> <span class="cart-total-amunt">{{cart.get_total_price}} تومان</span><i class="icon-shopping-bag2 float-left"></i><span class="cart-total">{{cart|length}}</span></a>
+    <ul class="mini-cart">
+        {% for item in cart %}
+            <li class="cart-item">
+                <div class="cart-image">
+                    <a href="{% url 'get.single.product' item.product.slug %}"><img alt="" src="/media/{{item.product.picture}}" width="80" height="80"></a>
+                </div> 
+                <div class="cart-title">
+                    <a href="single-product.html">
+                        <h4>{{item.product.name}}</h4>
+                    </a>
+                    <div class="quanti-price-wrap">
+                        <span class="quantity">{{item.quantity}} ×</span>
+                        <div class="price-box"><span class="new-price">{{item.price}} تومان</span></div>
+                    </div>
+                    <a class="{% url 'cart.remove' item.product.id %}" href="#"><i class="icon-x"></i></a>
+                </div>
+            </li>
+        {% endfor %}
+  
+        <li class="subtotal-box">
+            <div class="subtotal-title">
+                <h3>جمع کل :</h3><span>{{cart.get_total_price}} تومان</span>
+            </div>
+        </li>
+        <li class="mini-cart-btns">
+            <div class="cart-btns">
+                <a href="{% url 'cart.detail' %}">مشاهده سبد</a>
+                <a href="{% url 'order.create' %}">پرداخت</a>
+            </div>
+        </li>
+    </ul>
+</div>
+{% endblock cart %}
+{% block title %}
+فروشگاه اینترنتی رند - سبد خرید
+{% endblock title %}
+{% block content %}
+ <!-- breadcrumb-area start -->
+ <div class="breadcrumb-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <!-- breadcrumb-list start -->
+                <ul class="breadcrumb-list">
+                    <li class="breadcrumb-item"><a href="{% url 'home' %}">صفحه اصلی</a></li>
+                    <li class="breadcrumb-item active">سبد خرید</li>
+                </ul>
+                <!-- breadcrumb-list end -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- breadcrumb-area end -->
+
+
+<!-- main-content-wrap start -->
+<div class="main-content-wrap section-ptb cart-page">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="cart-table">
+                    <div class="table-content table-responsive">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th class="plantmore-product-thumbnail">تصویر محصول</th>
+                                <th class="cart-product-name">نام محصول</th>
+                                <th class="plantmore-product-price">قیمت</th>
+                                <th class="plantmore-product-quantity">تعداد</th>
+                                <th class="plantmore-product-subtotal">جمع کل</th>
+                                <th class="plantmore-product-remove">حذف محصول</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in cart %}
+                                    {% with product=item.product %}
+                                        <tr>
+                                            <td class="plantmore-product-thumbnail"><a href="{% url 'get.single.product' product.slug %}"><img src="/media/{{product.picture}}" alt="{{product.name}}" width="150" height="150"></a></td>
+                                            <td class="plantmore-product-name"><a href="{% url 'get.single.product' product.slug %}">{{product.name}}</a></td>
+                                            {% if product.off_price %}
+                                                <td class="plantmore-product-price"><span class="amount">{{product.off_price}} تومان</span></td>
+                                            {% else %}
+                                                <td class="plantmore-product-price"><span class="amount">{{product.price}} تومان</span></td>
+                                            {% endif %}
+                                            <td class="plantmore-product-quantity">
+                                               
+                                                <form action="{% url 'cart.add' product.id %}" method="POST">
+                                            
+                                                    {{item.update_quantity_form.quantity}}
+                                                    {{item.update_quantity_form.override}}
+                                                    <input type="submit" class="w-75" value="ویرایش">
+                                                    {% csrf_token %}
+                                                </form>
+
+                                            </td>
+                                            <td class="product-subtotal"><span class="amount">{{item.total_price}} تومان</span></td>
+                                         
+                                            <td class="plantmore-product-remove">
+                                                <form action="{% url 'cart.remove' product.id %}" method="POST">
+                                                    <button type="submit" class="btn btn-outline-dark]"><i class="icon-x"></i></button>
+                                                    {% csrf_token %}
+                                                </form>
+                                                
+                                            
+                                            </td>
+                                        </tr>
+                                    {% endwith %}
+                          
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="coupon-all">
+
+                                <div class="coupon2">
+               
+                                    <a href="{% url 'all.products' %}" class="continue-btn">ادامه خرید</a>
+                                </div>
+
+                           
+                            </div>
+                        </div>
+                        <div class="col-md-4 ml-auto">
+                            <div class="cart-page-total">
+                                <h2>مجموع سبد</h2>
+                                <ul>
+                                    <li>جمع کل <span>{{cart.get_total_price}} تومان</span></li>
+                                </ul>
+                        
+                                <a href="{% url 'order.create' %}" class="proceed-checkout-btn">ادامه فرایند پرداخت</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- main-content-wrap end -->
+
+{% endblock content %}

@@ -1,0 +1,396 @@
+<!doctype html>
+<html class="no-js" lang="fa">
+{% load static %}
+
+<!-- /origine/origine/index.html 25 Dec 2021 10:49:38 GMT -->
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>{% block title %}{% endblock title %}</title>
+    <meta name="robots" content="noindex, follow" />
+    <meta name="description" content="فروش مستثیم انواع زیتون , روغن زیتون , عرقیجات و غیره مستقیم از کارخانه رند ارسال به تمام مقاط جهان">
+    <meta name="subject" content="فروش انواع زیتون و روغن زیتون"/>
+    <meta name="copyright" content="(c) 2022 rendolives.ir">
+    <meta name="keywords" content="شرکت_رند,زیتون,روغن_زیتون,رند,زبتون_رند,زیتون_رودبار,روغن زیتون خالص در رودبارعرقیات گیاهی در رودبار,فروش برگ زیتون در رودبار,فروش روغن زیتون بکر در رودبار,فروش زیتون پرورده در رودبار,فروش زیتون سیاه در رودبار,فروش صابون زیتون در رودبار,فروش لواشک در رودبارکارخانه,محصولات زیتون رندمحصولات,زیتون رند در رودبار"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'icons8-olive-48.png' %}">
+
+    <!-- CSS
+	============================================ -->
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'assets/css/vendor/bootstrap.min.css' %}">
+    <!-- Icon Font CSS -->
+    <link rel="stylesheet" href="{% static 'assets/css/vendor/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/vendor/plaza-font.css' %}">
+
+    <!-- Plugins CSS -->
+    <link rel="stylesheet" href="{% static 'assets/css/plugins/slick.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/plugins/swiper.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/plugins/animation.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/plugins/nice-select.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/plugins/fancy-box.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/plugins/jqueryui.min.css' %}">
+    <link rel="stylesheet" href="{% static 'order/style.css' %}">
+
+
+
+    <!-- Main Style CSS (Please use minify version for better website load performance) -->
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <!--<link rel="stylesheet" href="assets/css/style.min.css">-->
+
+</head>
+
+<body>
+
+<div class="main-wrapper">
+
+    <header class="header">
+
+        <!-- Header Top Start -->
+        <div class="header-top-area d-none d-lg-block text-color-white bg-gren border-bm-1">
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="header-top-settings">
+                            <ul class="nav align-items-center">
+                                <li class="language"><a href="{% url 'logout' %}">خروج از حساب</a> </li>
+                          
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="top-info-wrap text-end">
+                            <ul class="my-account-container">
+                                {% if user.is_authenticated %}
+                                    <li><a href="{% url 'profile' %}">پروفایل</a></li>
+                                {% endif %}
+                                <li><a href="{% url 'all.products' %}">خرید</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- Header Top End -->
+
+        <!-- haeader Mid Start -->
+        <div class="haeader-mid-area bg-gren border-bm-1 d-none d-lg-block ">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-3 col-md-4 col-5">
+                        <div class="logo-area">
+                            <h1 class="text-white fn">فروشگاه رند</h1>
+                            
+                        </div>
+                    </div>
+                    <div class="col-lg-5">
+                        <div class="search-box-wrapper">
+                            <div class="search-box-inner-wrap">
+                             
+                                <form class="search-box-inner" method="POST" action="{% url 'search' %}">
+                                    <div class="search-select-box">
+                                        <select class="nice-select">
+                                            <optgroup label="organic food">
+                                                <option value="volvo">همه</option>
+                                        
+                                            </optgroup>
+                                            
+                                        </select>
+                                    </div>
+                                    <div class="search-field-wrap">
+                                     {% csrf_token %}
+                                            <input type="text" name="name" class="search-field" placeholder="جستجو...">
+                                   
+
+                                        <div class="search-btn">
+                                            <button><i class="icon-search"></i></button>
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="customer-wrap green-bg">
+                            <div class="single-costomer-box">
+                                <div class="single-costomer">
+                                    <p><i class="icon-check-circle"></i><span> ارسال به کل ایران </span></p>
+                                </div>
+                            </div>
+
+                            <div class="single-costomer-box">
+                                <div class="single-costomer">
+                                    <p><i class="icon-lock"></i><span>پرداخت امن</span></p>
+                                </div>
+                            </div>
+
+                            <div class="single-costomer-box">
+                                <div class="single-costomer">
+                                    <p><i class="icon-bell"></i><span>پشتیبانی 24</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- haeader Mid End -->
+
+        <!-- haeader bottom Start -->
+        <div class="haeader-bottom-area bg-gren header-sticky">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-9 d-none d-lg-block">
+
+                        <div class="main-menu-area white_text">
+                            <!--  Start Mainmenu Nav-->
+                            <nav class="main-navigation">
+                                <ul>
+                                    <li class="active"><a href="{% url 'home' %}">خانه </a>
+                                    
+                                    </li>
+
+                                    <li><a href="{% url 'all.products' %}">فروشگاه </a>
+                                    
+                                    </li>
+                                    <li><a href="{% url 'all.posts' %}">وبلاگ</a>
+                                    
+                                    </li>
+                                
+
+                                    <li><a href="{% url 'profile' %}">حساب کاربری</a>
+                                     
+                                    </li>
+                                    <li><a href="{% url 'about.us' %}">درباره ما</a></li>
+                                    <li><a href="{% url 'contact.us' %}">تماس با ما</a></li>
+                                </ul>
+                            </nav>
+
+                        </div>
+                    </div>
+
+                    <div class="col-5 col-md-6 d-block d-lg-none">
+                        <h4 class="text-white">فروشگاه رند</h4>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 col-7">
+                        <div class="right-blok-box text-white d-flex">
+
+                            {% block cart %}{% endblock cart %}
+
+
+                            <div class="mobile-menu-btn d-block d-lg-none">
+                                <div class="off-canvas-btn">
+                                    <a href="#"><img src="{% static 'assets/images/icon/bg-menu.png' %}" alt="menu"></a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- haeader bottom End -->
+
+
+        <!-- off-canvas menu start -->
+        <aside class="off-canvas-wrapper">
+            <div class="off-canvas-overlay"></div>
+            <div class="off-canvas-inner-content">
+                <div class="btn-close-off-canvas">
+                    <i class="icon-x"></i>
+                </div>
+
+                <div class="off-canvas-inner">
+
+                    <div class="search-box-offcanvas">
+                        
+                        <form  method="POST" action="{% url 'search' %}">
+                
+                            {% csrf_token %}
+                            <input type="text" name="name" class="search-field" placeholder="جستجو...">
+                          
+
+                             
+                       
+                       </form>
+                       
+                    </div>
+
+                    <!-- mobile menu start -->
+                    <div class="mobile-navigation">
+
+                        <!-- mobile menu navigation start -->
+                        <nav>
+                            <ul class="mobile-menu">
+                                <li class="menu-item-has-children"><a href="{% url 'home' %}">خانه</a>
+                            
+                                </li>
+                                <li class="menu-item-has-children"><a href="{% url 'all.products' %}">فروشگاه </a>
+                                  
+                                </li>
+                                <li class="menu-item-has-children"><a href="{% url 'all.posts' %}">وبلاگ </a>
+                                  
+                                </li>
+                           
+                                <li class="menu-item-has-children "><a href="#">حساب کاربری </a>
+                                    <ul class="dropdown">
+                                        {% if user.is_authenticated %}
+                                        <li><a href="{% url 'profile' %}">پروفایل</a></li>
+                                        <li><a href="{% url 'logout' %}">خروج</a></li>
+                                        {% else %}
+                                        <li><a href="{% url 'signin' %}">ورود</a></li>
+                                        {% endif %}
+                                        
+                                       
+                                        
+                                    </ul>
+                                </li>
+                                <li><a href="{% url 'about.us' %}">درباره ما</a></li>
+                                <li><a href="{% url 'contact.us' %}">تماس با ما</a></li>
+                            </ul>
+                        </nav>
+                        <!-- mobile menu navigation end -->
+                    </div>
+                    <!-- mobile menu end -->
+
+
+
+                    <!-- offcanvas widget area start -->
+                 
+                    <!-- offcanvas widget area end -->
+                </div>
+            </div>
+        </aside>
+        <!-- off-canvas menu end -->
+
+
+    </header>
+    {% block content %}
+    
+    {% endblock content %}
+    <footer>
+        <div class="footer-top section-pb section-pt-60">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4 col-md-6">
+                        <div class="widget-footer mt-40">
+                            <h6 class="title-widget">اطلاعات تماس</h6>
+                            <div class="contact-call-wrap">
+                                <img src="{% static 'assets/images/icon/img-headphone.png' %}" alt="contact-us">
+                                <div class="footer-call">
+                                    <p>تلفن تماس :</p>
+                                    <h6>09113354875</h6>
+                                </div>
+                            </div>
+                            <div class="footer-addres">
+                                <p>گیلان , رودبار , خلیل آباد</p>
+                                <p>ًRend555bashash@gmail.com</p>
+                            </div>
+
+                            <ul class="social-icons">
+                             
+                                <li>
+                                    <a class="instagram social-icon" href="https://instagram.com/mehdibashash_rend" title="Instagram" target="_blank"><i class="fa fa-instagram"></i></a>
+                                </li>
+                                <li>
+                                    <a class="bg-success social-icon" href="https://wa.me/989113354875" title="Whatsapp" target="_blank"><i class="fa fa-whatsapp"></i></a>
+                                </li>
+                                <li>
+                                    <a class="bg-info social-icon" href="https://t.me/REND555" title="Telegram" target="_blank"><i class="fa fa-telegram"></i></a>
+                                </li>
+                        
+                            </ul>
+
+                        </div>
+
+                    </div>
+                    <div class="col-lg-8 col-md-6 col-sm-6">
+                        <div class="widget-footer mt-40 ">
+                          <h5 class="text-white">{{info.footertext|safe|linebreaks}}</h5>
+                        </div>
+                    </div>
+            
+          
+                </div>
+            </div>
+        </div>
+        <div class="newletter-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="newletter-wrap">
+                            <div class="row align-items-center">
+                                <div class="col-lg-3 col-md-12 mb-3">
+                                
+                                        <a href="https://www.freepik.com/vectors/banner" class="text-white">Banner vector created by macrovector - www.freepik.com</a>
+                                        <a href="https://pngtree.com/free-backgrounds" class="text-white mt-2">free background photos from Pngtree.com</a>
+                                        <div class="text-white mt-2">
+
+                                            <a target="_blank" href="https://icons8.com/icon/81039/olive">Olive</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
+                                        </div>
+                              
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="row align-items-center text-center">
+                    <div class="col-lg-12 col-md-6">
+                        <div class="copy-left-text">
+                            <p class="copyright-text">&copy;  1400   ساخته شده با ❤️ توسط  <a href="https://github.com/mazdakdev" target="_blank">Mazdak</a> </p>
+                            <p class="copyright-text"> <a href="mailto:mazdak.software@gmail.com" target="_blank">mazdak.software@gmail.com</a> </p>
+                        </div>
+                    </div>
+              
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+
+</div>
+
+<!-- JS
+============================================ -->
+
+<!-- Modernizer JS -->
+<script src="{% static 'assets/js/vendor/modernizr-3.6.0.min.js' %}"></script>
+<!-- jQuery JS -->
+<script src="{% static 'assets/js/vendor/jquery-3.3.1.min.js' %}"></script>
+<!-- Bootstrap JS -->
+<script src="{% static 'assets/js/vendor/popper.min.js' %}"></script>
+<script src="{% static 'assets/js/vendor/bootstrap.min.js' %}"></script>
+
+<!-- Plugins JS -->
+<script src="{% static 'assets/js/plugins/slick.min.js' %}"></script>
+<script src="{% static 'assets/js/plugins/swiper.min.js' %}"></script>
+<script src="{% static 'assets/js/plugins/jquery.nice-select.min.js' %}"></script>
+<script src="{% static 'assets/js/plugins/countdown.min.js' %}"></script>
+<script src="{% static 'assets/js/plugins/image-zoom.min.js' %}"></script>
+<script src="{% static 'assets/js/plugins/fancybox.js' %}"></script>
+<script src="{% static 'assets/js/plugins/scrollup.min.js' %}"></script>
+<script src="{% static 'assets/js/plugins/jqueryui.min.js' %}"></script>
+<script src="{% static 'assets/js/plugins/ajax-contact.js' %}"></script>
+
+
+<!-- Main JS -->
+<script src="{% static 'assets/js/main.js' %}"></script>
+{% block script %}{% endblock script %}
+
+</body>
+
+
+<!-- /origine/origine/index.html 25 Dec 2021 10:50:23 GMT -->
+</html>
