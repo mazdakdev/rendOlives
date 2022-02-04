@@ -1,0 +1,212 @@
+{% extends './dbase.html' %}
+
+{% block title %}افزودن  پست {% endblock title %}
+
+{% block content %}
+
+
+    <!--**********************************
+        Main wrapper start
+    ***********************************-->
+    <div id="main-wrapper">
+
+        <!--**********************************
+            Header start
+        ***********************************-->
+        <div class="header">
+            <div class="header-content">
+                <nav class="navbar navbar-expand">
+                    <div class="collapse navbar-collapse justify-content-between">
+                        <div class="header-left">
+                            <div class="search_bar dropdown">
+								<h3>rendolives.ir</h3>
+                            </div>
+                        </div>
+
+                        <ul class="navbar-nav header-right">
+							
+							
+                            <li class="nav-item dropdown header-profile">
+								<div class="dropdown mr-5  ">
+									<a href="#" class="btn btn-primary light sharp " data-toggle="dropdown" aria-expanded="true"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"></rect><circle fill="#000000" cx="5" cy="12" r="2"></circle><circle fill="#000000" cx="12" cy="12" r="2"></circle><circle fill="#000000" cx="19" cy="12" r="2"></circle></g></svg></a>
+									<ul class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; will-change: transform; top: 0px; left: 100px; transform: translate3d(-169px, 30px, 0px);">
+										<li class="dropdown-item"><i class="fa fa-logout text-primary mr-2"></i> <a href="{% url 'profile' %}">خانه</a></li>
+										<li class="dropdown-item"><i class="fa fa-logout text-primary mr-2"></i> <a href="{% url 'logout' %}">خروج از حساب</a></li>
+                                        {% if user.is_superuser %}
+                                        <a href="{% url 'orders' %}"> <li class="dropdown-item"><i class="fa  text-primary mr-2"></i>سفارشات</li></a>
+                                        <a href="{% url 'admin.products' %}">   <li class="dropdown-item"><i class="fa  text-primary mr-2"></i> محصولات</li></a>
+                                    
+                                        <a href="{% url 'admin.product.create' %}"><li class="dropdown-item"><i class="fa  text-primary mr-2"></i> ساخت محصول جدید</li></a>
+                                        <a href="{% url 'user.posts' %}"><li class="dropdown-item"><i class="fa  text-primary mr-2"></i>پست ها</li></a>
+                                        <a href="{% url 'admin.post.create' %}"><li class="dropdown-item"><i class="fa  text-primary mr-2"></i> ساخت پست جدید</li></a>
+
+                                        <a href="{% url 'admin.categories' %}">   <li class="dropdown-item"><i class="fa  text-primary mr-2"></i>دسته بندی ها</li></a>
+                                        <a href="{% url 'admin.category.create' %}">   <li class="dropdown-item"><i class="fa  text-primary mr-2"></i> ساخت دسته بندی جدید</li></a>
+                                        <a href="{% url 'admin.comments' %}">   <li class="dropdown-item"><i class="fa  text-primary mr-2"></i>کامنت ها</li></a>
+                                        <a href="{% url 'web.info' %}">   <li class="dropdown-item"><i class="fa  text-primary mr-2"></i>مشخصات وبسایت</li></a>
+                                        <a href="{% url 'admin.brands' %}">   <li class="dropdown-item"><i class="fa  text-primary mr-2"></i>برند ها</li></a>
+                                        <a href="{% url 'admin.create.brand' %}">   <li class="dropdown-item"><i class="fa  text-primary mr-2"></i>ساخت برند جدید</li></a>
+                                            {% else %}
+                                            <a href="{% url 'logout' %}">   <li class="dropdown-item"><i class="fa fa-logout text-primary mr-2"></i> سبد خرید</li></a>
+                                            <a href="{% url 'logout' %}">  <li class="dropdown-item"><i class="fa fa-logout text-primary mr-2"></i> علاقه مندی ها</li></a>
+                                            <a href="{% url 'logout' %}">     <li class="dropdown-item"><i class="fa fa-logout text-primary mr-2"></i> سفارشات</li></a>
+                                            <a href="{% url 'logout' %}">   <li class="dropdown-item"><i class="fa fa-logout text-primary mr-2"></i> مشخصات کاربری</li></a>
+                                        {% endif %}
+
+									</ul>
+								</div>
+                                <a class="nav-link" href="#" role="button" >
+                             
+									<div class="header-info">
+                                        {% if user.is_superuser %}
+                                            <span>سلام, <strong> {{user}} جان  </strong></span>
+                                            <small>به صفحه شخصی خودت خوش آمدی</small>
+                                        {% else %}
+                                            <span>سلام, <strong> {{user.first_name}} جان  </strong></span>
+                                            <small>به صفحه شخصی خودت خوش آمدی</small>
+                                        {% endif %}
+						
+									</div>
+								
+                                </a>
+                        
+                            </li>
+					
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <!--**********************************
+            Header end ti-comment-alt
+        ***********************************-->
+
+
+        <!--**********************************
+            Content body start
+        ***********************************-->
+        <div class="content-body">
+            {% if not user.is_superuser %}
+            <div class="authincation h-100">
+                <div class="container h-100">
+                    <div class="row justify-content-center h-100 align-items-center">
+                        <div class="col-md-5">
+                            <div class="form-input-content text-center error-page">
+                                <h1 class="error-text  font-weight-bold">403</h1>
+                                <h4><i class="fa fa-times-circle text-danger"></i> خطای ممنوع!</h4>
+                                <p>شما اجازه مشاهده این منبع را ندارید.</p>
+                                <div>
+                                    <a class="btn btn-primary" href="{% url 'profile' %}">برو صفحه اصلی</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <div class="container">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">افزودن پست  </h4>
+                        </div>
+                        <div class="card-body">
+                            {% if form.errors %}
+                            <div class="alert alert-danger solid alert-rounded ">
+                                <strong>خطا ! لطفا همه فیلد های مورد نیار را پر کنید</strong>
+                            </div>
+             
+                        {% endif %}
+                            <div class="basic-form">
+                                <form action="{% url 'admin.post.create'  %}" method="post" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <div class="form-row">
+                                        <div class="form-group col-md-4 input-primary">
+                                            <label> عنوان پست</label>
+                                            <input type="text" class="form-control"  name="title">
+                                        </div>
+                                        <div class="form-group col-md-4 input-primary">
+                                            <label> اسلاگ پست</label>
+                                            <input type="text" class="form-control" name="slug">
+                                        </div>
+                                    
+                                  
+                                        
+
+                                  
+                                        
+                                        <div class="form-group col-md-12">
+                                            <label>تصویر پست</label>
+                                            <div class="mt-2">
+                                                <input type="file"   name="picture">
+                                            
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-md-12 input-primary">
+                                            <label>بدنه پست </label>
+                                            <textarea class="form-control" id="txt" style="height:300px;" name="body"></textarea>
+                                           
+                                            
+                                        </div>
+
+
+    
+
+                                        <div class="form-group col-md-6 input-primary">
+                                            <label >دسته بندی پست </label>
+                                            <select class="form-control" name="category" >
+                                                {% for category in categories %}
+                                                    <option  value="{{category.id}}">{{category.name}}</option>
+                                                {% endfor %}
+                                            </select>
+                                      
+                                        </div>
+                                      
+                                      
+                                    </div>
+                                     
+                                   
+                                
+
+                                    <button type="submit" class="btn btn-primary">افزودن پست</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        
+
+		</div>
+
+        <!--**********************************
+            Footer start
+        ***********************************-->
+        <div class="footer">
+            <div class="copyright">
+                <p>Developed with ❤️ by <a href="https://github.com/mazdakdev">Mazdak</a> </p>
+            </div>
+        </div>
+
+        
+    </div>
+{% endblock content %}
+
+{% block script %}
+tinymce.init({
+    selector: '#txt',
+    plugins: 'print preview paste importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons',
+    imagetools_cors_hosts: ['picsum.photos'],
+    menubar: 'file edit view insert format tools table help',
+    toolbar: 'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media template link anchor codesample | ltr rtl',
+    toolbar_sticky: true,
+    autosave_ask_before_unload: true,
+    autosave_interval: '30s',
+    autosave_prefix: '{path}{query}-{id}-',
+    autosave_restore_when_empty: false,
+    autosave_retention: '2m',
+    image_advtab: true,
+  });
+{% endblock script %}

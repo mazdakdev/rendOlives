@@ -1,0 +1,224 @@
+{% extends './dbase.html' %}
+
+{% block title %}مشاهده محصول{% endblock title %}
+
+{% block content %}
+    <!--*******************
+        Preloader end
+    ********************-->
+
+
+    <!--**********************************
+        Main wrapper start
+    ***********************************-->
+    <div id="main-wrapper">
+
+        <!--**********************************
+            Header start
+        ***********************************-->
+        <div class="header">
+            <div class="header-content">
+                <nav class="navbar navbar-expand">
+                    <div class="collapse navbar-collapse justify-content-between">
+                        <div class="header-left">
+                            <div class="search_bar dropdown">
+								<h3>rendolives.ir</h3>
+                            </div>
+                        </div>
+
+                        <ul class="navbar-nav header-right">
+							
+							
+                            <li class="nav-item dropdown header-profile">
+								<div class="dropdown mr-5  ">
+									<a href="#" class="btn btn-primary light sharp " data-toggle="dropdown" aria-expanded="true"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"></rect><circle fill="#000000" cx="5" cy="12" r="2"></circle><circle fill="#000000" cx="12" cy="12" r="2"></circle><circle fill="#000000" cx="19" cy="12" r="2"></circle></g></svg></a>
+									<ul class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; will-change: transform; top: 0px; left: 100px; transform: translate3d(-169px, 30px, 0px);">
+										<li class="dropdown-item"><i class="fa fa-logout text-primary mr-2"></i> <a href="{% url 'profile' %}">خانه</a></li>
+										<li class="dropdown-item"><i class="fa fa-logout text-primary mr-2"></i> <a href="{% url 'logout' %}">خروج از حساب</a></li>
+                                        {% if user.is_superuser %}
+                                        <a href="{% url 'orders' %}"> <li class="dropdown-item"><i class="fa  text-primary mr-2"></i>سفارشات</li></a>
+                                        <a href="{% url 'admin.products' %}">   <li class="dropdown-item"><i class="fa  text-primary mr-2"></i> محصولات</li></a>
+                                    
+                                        <a href="{% url 'admin.product.create' %}"><li class="dropdown-item"><i class="fa  text-primary mr-2"></i> ساخت محصول جدید</li></a>
+                                        <a href="{% url 'user.posts' %}"><li class="dropdown-item"><i class="fa  text-primary mr-2"></i>پست ها</li></a>
+                                        <a href="{% url 'admin.post.create' %}"><li class="dropdown-item"><i class="fa  text-primary mr-2"></i> ساخت پست جدید</li></a>
+                                        <a href="{% url 'admin.categories' %}">   <li class="dropdown-item"><i class="fa  text-primary mr-2"></i>دسته بندی ها</li></a>
+                                        <a href="{% url 'admin.category.create' %}">   <li class="dropdown-item"><i class="fa  text-primary mr-2"></i> ساخت دسته بندی جدید</li></a>
+
+                                        <a href="{% url 'admin.comments' %}">   <li class="dropdown-item"><i class="fa  text-primary mr-2"></i>کامنت ها</li></a>
+                                        <a href="{% url 'web.info' %}">   <li class="dropdown-item"><i class="fa  text-primary mr-2"></i>مشخصات وبسایت</li></a>
+                                        <a href="{% url 'admin.brands' %}">   <li class="dropdown-item"><i class="fa  text-primary mr-2"></i>برند ها</li></a>
+                                        <a href="{% url 'admin.create.brand' %}">   <li class="dropdown-item"><i class="fa  text-primary mr-2"></i>ساخت برند جدید</li></a>
+                                            {% else %}
+                                            <a href="{% url 'logout' %}">   <li class="dropdown-item"><i class="fa fa-logout text-primary mr-2"></i> سبد خرید</li></a>
+                                            <a href="{% url 'logout' %}">  <li class="dropdown-item"><i class="fa fa-logout text-primary mr-2"></i> علاقه مندی ها</li></a>
+                                            <a href="{% url 'logout' %}">     <li class="dropdown-item"><i class="fa fa-logout text-primary mr-2"></i> سفارشات</li></a>
+                                            <a href="{% url 'logout' %}">   <li class="dropdown-item"><i class="fa fa-logout text-primary mr-2"></i> مشخصات کاربری</li></a>
+                                        {% endif %}
+
+									</ul>
+								</div>
+                                <a class="nav-link" href="#" role="button" >
+                             
+									<div class="header-info">
+                                        {% if user.is_superuser %}
+                                            <span>سلام, <strong> {{user}} جان  </strong></span>
+                                            <small>به صفحه شخصی خودت خوش آمدی</small>
+                                        {% else %}
+                                            <span>سلام, <strong> {{user.first_name}} جان  </strong></span>
+                                            <small>به صفحه شخصی خودت خوش آمدی</small>
+                                        {% endif %}
+						
+									</div>
+								
+                                </a>
+                        
+                            </li>
+					
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <!--**********************************
+            Header end ti-comment-alt
+        ***********************************-->
+
+
+        <!--**********************************
+            Content body start
+        ***********************************-->
+        <div class="content-body">
+            {% if not user.is_superuser %}
+            <div class="authincation h-100">
+                <div class="container h-100">
+                    <div class="row justify-content-center h-100 align-items-center">
+                        <div class="col-md-5">
+                            <div class="form-input-content text-center error-page">
+                                <h1 class="error-text  font-weight-bold">403</h1>
+                                <h4><i class="fa fa-times-circle text-danger"></i> خطای ممنوع!</h4>
+                                <p>شما اجازه مشاهده این منبع را ندارید.</p>
+                                <div>
+                                    <a class="btn btn-primary" href="{% url 'profile' %}">برو صفحه اصلی</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <div class="container">
+                <div class="row page-titles mx-0">
+                    <div class="col-sm-6 p-md-0">
+                        <div class="welcome-text">
+                            <h4>سلام، خوش آمدید</h4>
+                            <p class="mb-0">محصولات</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{% url 'profile' %}">پروفایل</a></li>
+                            <li class="breadcrumb-item active"><a href="{% url 'admin.products' %}">محصولات</a></li>
+                        </ol>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-xl-3 ">
+                                        <!-- Tab panes -->
+                                        <div class="tab-content">
+                                            <div class="tab-pane fade show active">
+                                                <img class="img-fluid" src="/media/{{product.picture}}" alt="">
+                                            </div>
+                                    
+                                        </div>
+                    
+                                    </div>
+                                    <!--Tab slider End-->
+                                    <div class="col-xl-9 col-sm-12">
+                                        <div class="product-detail-content">
+                                            <!--Product details-->
+                                            <div class="new-arrival-content pr">
+                                                <h4>{{ product.name }}</h4>
+                                                <div class="star-rating mb-2">
+                                                    <span class="review-text">({{count}} نظر ) 
+                                                </div>
+                                                <p class="price">{{product.price}} تومان</p>
+                                                {% if product.available %}
+                                                <p>دسترسی: <span class="item"> در انبار <i
+                                                    class="fa fa-shopping-basket"></i></span>
+                                                </p>
+                                                {% else %}
+                                                <p>دسترسی: <span class="item"> ناموجود <i
+                                                    class="fa fa-close"></i></span>
+                                                </p>
+                                                {% endif %}
+                                          
+                                                <p>دسته بندی محصول :
+                                                    <span class="badge badge-success light" placeholder="زیتون,روغن,زیتون_پرورده" >{{product.category}}</span>
+                                                </p>
+                                               
+                                                <p>برچسب های محصول:
+                                                    {% for tag in product.tags.all %}
+                                                        <span class="badge badge-success light" >{{ tag }}</span>
+                                                    {% endfor %}
+                                                </p>
+
+
+                                                <p class="text-content">
+                                                    {{product.description}}
+                                                </p>
+                                      
+                                         
+                                                <!--Quanatity End-->
+                                                <div class="shopping-cart mt-3">
+                                                    <a class="btn btn-warning btn-lg" href="{% url 'admin.product.update' product.id %}">
+                                                        <i class="fa fa-pen mr-2"></i>
+                                                         ویرایش    
+                                                    </a>
+                                                    <a  onclick="return confirm('آیا مطمعن هستید ؟')" class="btn btn-danger btn-lg" href="{% url 'admin.product.delete' product.id %}">
+                                                        <i class="fa fa-close mr-2"></i>
+                                                         حذف    
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+           
+                </div>
+            </div>
+            {% endif %}
+        
+
+		</div>
+
+        <!--**********************************
+            Footer start
+        ***********************************-->
+        <div class="footer">
+            <div class="copyright">
+                <p>Developed with ❤️ by <a href="https://github.com/mazdakdev">Mazdak</a> </p>
+            </div>
+        </div>
+        <!--**********************************
+            Footer end
+        ***********************************-->
+
+        <!--**********************************
+           Support ticket button start
+        ***********************************-->
+
+        <!--**********************************
+           Support ticket button end
+        ***********************************-->
+
+        
+    </div>
+{% endblock content %}

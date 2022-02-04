@@ -1,0 +1,244 @@
+{% extends 'base.html' %}
+
+{% block title %} فروشکاه اینترنتی رند - محصولات بر اساس دسته بندی{% endblock title %}
+{% block cart %}
+<div class="shopping-cart-wrap">
+    <a href="#"> <span class="cart-total-amunt">{{cart.get_total_price}} تومان</span><i class="icon-shopping-bag2 float-left"></i><span class="cart-total">{{cart|length}}</span></a>
+    <ul class="mini-cart">
+        {% for item in cart %}
+            <li class="cart-item">
+                <div class="cart-image">
+                    <a href="{% url 'get.single.product' item.product.slug %}"><img alt="" src="/media/{{item.product.picture}}" width="80" height="80"></a>
+                </div> 
+                <div class="cart-title">
+                    <a href="single-product.html">
+                        <h4>{{item.product.name}}</h4>
+                    </a>
+                    <div class="quanti-price-wrap">
+                        <span class="quantity">{{item.quantity}} ×</span>
+                        <div class="price-box"><span class="new-price">{{item.price}} تومان</span></div>
+                    </div>
+                    <a class="{% url 'cart.remove' item.product.id %}" href="#"><i class="icon-x"></i></a>
+                </div>
+            </li>
+        {% endfor %}
+  
+        <li class="subtotal-box">
+            <div class="subtotal-title">
+                <h3>جمع کل :</h3><span>{{cart.get_total_price}} تومان</span>
+            </div>
+        </li>
+        <li class="mini-cart-btns">
+            <div class="cart-btns">
+                <a href="{% url 'cart.detail' %}">مشاهده سبد</a>
+                <a href="{% url 'order.create' %}">پرداخت</a>
+            </div>
+        </li>
+    </ul>
+</div>
+{% endblock cart %}
+{% block content %}
+
+
+
+
+    <!-- breadcrumb-area start -->
+    <div class="breadcrumb-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <!-- breadcrumb-list start -->
+                    <ul class="breadcrumb-list">
+                        <li class="breadcrumb-item"><a href="{% url 'home' %}">صفحه اصلی</a></li>
+
+                        <li class="breadcrumb-item active">فروشگاه</li>
+                    </ul>
+                    <!-- breadcrumb-list end -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- breadcrumb-area end -->
+
+
+    <!-- main-content-wrap start -->
+    <div class="main-content-wrap shop-page section-ptb">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 order-lg-1 order-2">
+                    <!-- shop-sidebar-wrap start -->
+                    <div class="shop-sidebar-wrap">
+                        <div class="shop-box-area">
+
+                            <!--sidebar-categores-box start  -->
+                            <div class="sidebar-categores-box shop-sidebar mb-30">
+                                <h4 class="title">دسته بندی محصولات</h4>
+                                <!-- category-sub-menu start -->
+                                <div class="category-sub-menu">
+                                    <ul class="sidebar-tag">
+                                        {% for category in categories %}
+                                            <li ><a href="{% url 'category.products' category.slug %}">{{category.name}}</a></li>
+                                        {% endfor %}
+                                     
+                                    
+                                    </ul>
+                                </div>
+                                <!-- category-sub-menu end -->
+                            </div>
+                            <!--sidebar-categores-box end  -->
+
+
+                            <!-- shop-sidebar start -->
+                            <div class="shop-sidebar mb-30">
+                                <h4 class="title">برند محصول</h4>
+                                <ul class="sidebar-tag">
+                                    {% for brand in brands  %}
+                                    <li><a href="{% url 'brand.products' brand.slug %}">{{brand.name}}</a></li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            <!-- shop-sidebar end -->
+                        </div>
+                    </div>
+                    <!-- shop-sidebar-wrap end -->
+                </div>
+                <div class="col-lg-9 order-lg-2 order-1">
+              
+                    <!-- shop-product-wrapper start -->
+                    <div class="shop-product-wrapper">
+                        <div class="row align-itmes-center">
+                            <div class="col">
+                                <!-- shop-top-bar start -->
+                                <div class="shop-top-bar">
+                                    <!-- product-view-mode start -->
+
+                                    <div class="product-mode">
+                                        <!--shop-item-filter-list-->
+                                        <ul class="nav shop-item-filter-list" role="tablist">
+                                            <li><a class="active grid-view" data-bs-toggle="tab" href="#grid"><i class="ion-ios-keypad-outline"></i></a></li>
+                                            <li class="active"><a class=" list-view" data-bs-toggle="tab" href="#list"><i class="ion-ios-list-outline"></i></a></li>
+                                        </ul>
+                                        <!-- shop-item-filter-list end -->
+                                    </div>
+                                    <!-- product-view-mode end -->
+                                    <!-- product-short start -->
+                           
+                                    <!-- product-short end -->
+                                </div>
+                                <!-- shop-top-bar end -->
+                            </div>
+                        </div>
+                        <!-- shop-products-wrap start -->
+                        <div class="shop-products-wrap">
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="grid">
+                                    <div class="shop-product-wrap">
+                                        <div class="row row-8">
+                                   
+                                            {% for product in products %}
+                                                   
+                                            <div class="product-col col-lg-3 col-md-4 col-sm-6">
+                                                <!-- Single Product Start -->
+                                                <div class="single-product-wrap mt-10">
+                                                    <div class="product-image">
+                                                        <a href="{% url 'get.single.product' product.slug %}"><img src="/media/{{product.picture}}" alt="{{product.name}}" width="225" height="225"></a>
+                                                        {% if product.is_amazing %}
+                                                            <span class="onsale">فروش ویژه !</span>
+                                                        {% endif %}
+                                                    </div>
+                                                 
+                                                    <div class="product-content">
+                                                        {% if product.off_price %}
+                                                            <div class="price-box">
+                                                                <span class="new-price">{{product.off_price}} تومان</span>
+                                                                <span class="old-price">{{product.price}} تومان</span>
+                                                            </div>
+                                                        {% else %}
+                                                            <div class="price-box">
+                                                                
+                                                                <span class="price">{{product.price}} تومان</span>
+                                                            </div>
+                                                        {% endif %}
+                                                        <h6 class="product-name"><a href="product-details.html">{{product.name}}</a></h6>
+
+                                                        <div class="product-button-action">
+                                                            <a  class="add-to-cart" href="{% url 'get.single.product' product.slug %}">مشاهده محصول</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Single Product End -->
+                                            </div>
+                                            {% endfor %}
+                                        
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="list">
+                                   
+                                   {% for product in products %}
+                                        <div class="shop-product-list-wrap">
+                                            <div class="row product-layout-list">
+                                                <div class="col-lg-3 col-md-3">
+                                                    <!-- single-product-wrap start -->
+                                                    <div class="single-product">
+                                                        <div class="product-image">
+                                                            <a href="{% url 'get.single.product' product.slug %}"><img src="/media/{{product.picture}}" alt="{{product.name}}"></a>
+                                                        </div>
+                                                    </div>
+                                                    <!-- single-product-wrap end -->
+                                                </div>
+
+                                                <div class="col-lg-6 col-md-6">
+                                                    <div class="product-content-list text-end">
+                                                        <div class="price-box">
+                                                           {% if product.off_price %}
+                                                                <span class="new-price"> {{product.off_price}} تومان</span>
+                                                                <span class="old-price"> {{product.price}} تومان</span>
+                                                            {% else %}
+                                                                <span class="price"> {{product.price}} تومان</span>
+                                                           {% endif %}
+                                                        </div>
+                                                        <p><a href="{% url 'get.single.product' product.slug %}" class="product-name">{{product.name}}</a></p>
+
+                                                        <p>{{product.description|safe|linebreaks}}</p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-lg-3 col-md-3">
+                                                    <div class="block2">
+                                                        <ul class="stock-cont">
+                                                            {% if product.is_amazing %}
+                                                                <li class="product-stock-status">فروش ویژه</li>
+                                                            {% endif %}
+                                                        </ul>
+                                                        <div class="product-button">
+                                                            <div class="add-to-cart">
+                                                                <div class="product-button-action">
+                                                                    <a  class="add-to-cart" href="{% url 'get.single.product' product.slug %}">مشاهده محصول</a>
+                                                                </div>
+                                                            </div>
+                                                  
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                   {% endfor %}
+         
+                             
+                            </div>
+                        </div>
+                        <!-- shop-products-wrap end -->
+
+      
+                    </div>
+                    <!-- shop-product-wrapper end -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- main-content-wrap end -->
+
+
+ 
+{% endblock content %}
