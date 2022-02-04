@@ -1,0 +1,290 @@
+{% extends 'base.html' %}
+
+{% block title %}فروشگاه اینترنتی رند - صفحه اصلی{% endblock title %}
+{% load static %}
+
+{% block cart %}
+<div class="shopping-cart-wrap">
+    <a href="#"> <span class="cart-total-amunt">{{cart.get_total_price}} تومان</span><i class="icon-shopping-bag2 float-left"></i><span class="cart-total">{{cart|length}}</span></a>
+    <ul class="mini-cart">
+        {% for item in cart %}
+            <li class="cart-item">
+                <div class="cart-image">
+                    <a href="{% url 'get.single.product' item.product.slug %}"><img alt="{{item.product.name}}" src="/media/{{item.product.picture}}" width="80" height="80"></a>
+                </div> 
+                <div class="cart-title">
+                    <a href="single-product.html">
+                        <h4>{{item.product.name}}</h4>
+                    </a>
+                    <div class="quanti-price-wrap">
+                        <span class="quantity">{{item.quantity}} ×</span>
+                        <div class="price-box"><span class="new-price">{{item.price}} تومان</span></div>
+                    </div>
+                    <a class="{% url 'cart.remove' item.product.id %}" href="#"><i class="icon-x"></i></a>
+                </div>
+            </li>
+        {% endfor %}
+  
+        <li class="subtotal-box">
+            <div class="subtotal-title">
+                <h3>جمع کل :</h3><span>{{cart.get_total_price}} تومان</span>
+            </div>
+        </li>
+        <li class="mini-cart-btns">
+            <div class="cart-btns">
+                <a href="{% url 'cart.detail' %}">مشاهده سبد</a>
+                <a href="{% url 'order.create' %}">پرداخت</a>
+            </div>
+        </li>
+    </ul>
+</div>
+{% endblock cart %}
+
+{% block content %}
+   <!-- Hero Section Start -->
+   <div class="hero-slider-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="hero-slider-wrapper mt-30">
+                    <!-- Hero Slider Start -->
+                    <div class="hero-slider-area hero-slider-one">
+                        <div class="swiper-container gallery-top">
+                            <div class="swiper-wrapper"> 
+                                <div class="swiper-slide" style="background-image:url(/media/{{info.banner_1}})" >
+                               
+
+                                </div>
+                                {% if info.banner_2 %}
+                                <div class="swiper-slide" style="background-image:url(/media/{{info.banner_2}})">
+                               
+
+                                </div>
+                                
+                                {% endif %}
+                                {% if info.banner_3 %}
+                                <div class="swiper-slide" style="background-image:url(/media/{{info.banner_3}})">
+                                
+
+                                </div>
+                                
+                                {% endif %}
+                            
+                                {% if info.banner_4 %}
+                                <div class="swiper-slide" style="background-image:url(/media/{{info.banner_4}})">
+                                </div>
+                                
+                                
+                                {% endif %}
+                              
+                             
+
+                            </div>
+                            <div class="swiper-pagination"></div>
+                        </div>
+                        <div class="swiper-container gallery-thumbs">
+                        
+                        </div>
+                    </div>
+                    <!-- Hero Slider End -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Hero Section End -->
+
+
+
+
+    <!-- Banner Area End -->
+
+    <!-- Product Area Start -->
+    <div class="product-area section-pt-30 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6">
+                    <!-- Section Title Start -->
+                    <div class="section-title">
+                        <h3>محصولات اخیر</h3>
+                    </div>
+                    <!-- Section Title End -->
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <!-- Section Title Start -->
+                    <div class="view-all-product text-end">
+                        <a href="{% url 'all.products' %}">مشاهده تمام محصولات <i class="icon-chevrons-left"></i></a>
+                    </div>
+                    <!-- Section Title End -->
+                </div>
+            </div>
+            <div class="col-xl-10 col-lg-9 col-md-8">
+                <div class="row row-8 product-active-lg-4 ltr">
+
+     
+               
+
+                    {% for product in products %}
+                            <div class="product-col">
+                                <!-- Single Product Start -->
+                                <div class="single-product-wrap mt-30">
+                                    <div class="product-image">
+                                        {% load thumbnail %}
+
+                                        {% thumbnail product.picture "234x363" as thumb %}
+                                    
+                                            <a href="{% url 'get.single.product' product.slug %}"><img src="{{ thumb.url }}" width="{{ thumb.width }}" height="{{ thumb.height }}" alt="{{product.name}}"></a>
+                                        {% endthumbnail %}
+                                    </div>
+                                 
+                                   
+
+                                    <div class="product-content">
+                                        <div class="price-box">
+                                            {% if product.off_price %}
+                                                <span class="new-price">{{product.off_price}} تومان</span>
+                                                <span class="old-price">{{product.price}} تومان</span>
+                                            {% else %}
+                                            <span class="price">{{product.price}}</span>
+
+                                            {% endif %}
+                                        </div>
+                                        <h6 class="product-name"><a href="product-details.html">{{product.name}}</a></h6>
+                                
+                                        <div class="product-button-action">
+                                            <a href="{% url 'get.single.product' product.slug %}" class="add-to-cart">مشاهده محصول</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Single Product End -->
+                            </div>
+            
+                    {% endfor %}
+
+            
+            
+                        <!-- Single Product End -->
+            
+                 
+                    </div>
+                </div>
+            </div>
+      
+
+        </div>
+    </div>
+        <!-- Product Area Start -->
+
+        <!-- Deals Off Area Start -->
+        
+  
+        <div class="deals-offer-area section-pt-100 section-pb-40 dealis-offer-bg  mt-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-2 col-lg-3 col-md-4">
+                    
+                    </div>
+                    <div class="col-xl-10 col-lg-9 col-md-8">
+                        <div class="row row-8 product-active-lg-4 ltr">
+                        
+                            {% for product in products %}
+                            {% if product.is_amazing %}
+                            <div class="product-col">
+                                <!-- Single Product Start -->
+                                <div class="single-product-wrap mt-30">
+                                    <div class="product-image">
+                                        <a href="{% url 'get.single.product' product.slug %}"><img src="/media/{{product.picture}}" width="236" heigh="236" alt="{{product.name}}"></a>
+                                        <span class="onsale">فروش ویژه!</span>
+
+                                        <!-- countdown start -->
+                    
+                                        <div class="countdown-deals"  data-countdown="{{product.amazing_till}}"></div>
+                                        <!-- countdown end -->
+                                    </div>
+                        
+                                    <div class="product-content">
+                                        {% if product.off_price %}
+                                            <div class="price-box">
+                                                <span class="new-price">{{product.off_price}} تومان</span>
+                                                <span class="old-price">{{product.price}} تومان</span>
+                                            </div>
+                                        {% else %}
+                                            <span class="price">{{product.price}}</span>
+                                        {% endif %}
+                                        <h6 class="product-name"><a href="product-details.html">{{product.name}}</a></h6>
+                                
+                                        <div class="product-button-action">
+                                        
+                                            <a href="{% url 'get.single.product' product.slug %}" class="add-to-cart">مشاهده محصول</a>
+                                            
+                                        
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                <!-- Single Product End -->
+                            </div>
+                            {% else %}
+                        
+                            {% endif %}
+                    
+
+                            {% endfor %}
+                            
+                        
+                
+                        
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Deals Off Area End -->
+
+    
+  
+  {% if posts %}
+            <!-- Blog Area Start -->
+        <div class="product-area section-pt mt-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <!-- Section Title Start -->
+                        <div class="section-title">
+                            <h3>پست های اخیر وبلاگ</h3>
+                        </div>
+                        <!-- Section Title End -->
+                    </div>
+                </div>
+
+                <div class="product-wrapper-four ltr">
+                    <div class="row row-8 product-row-6-active">
+                        {% for post in posts %}
+                            <div class="product-col">
+                                <!-- Single Product Start -->
+                                <div class="single-product-wrap mt-10">
+                                    <div class="product-image">
+                                        <a href="{% url 'get.post' post.slug %}"><img width="293" height="197"  src="/media/{{post.picture}}" alt="{{post.title}}"></a>
+                            
+                                    </div>
+                                
+                                    <div class="product-content">
+                                    
+                                        <h6 class="product-name"><a href="{% url 'get.post' post.slug %}">{{post.title}}</a></h6>
+
+                                        <div class="product-button-action">
+                                            <a href="{% url 'get.post' post.slug %}" class="add-to-cart">مشاهده پست</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Single Product End -->
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Blog Area Start -->
+  {% endif %}
+{% endblock content %}

@@ -1,0 +1,13 @@
+django
+pillow
+django-taggit
+celery
+django-jalali-date 
+psycopg2
+az-iranian-bank-gateways
+redis
+django-htmlmin
+ippanel
+django-phonenumber-field
+phonenumbers
+sorl-thumbnail

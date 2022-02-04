@@ -1,0 +1,193 @@
+
+{% extends 'base.html' %}
+
+{% block title %}قروشگاه رند - وبلاگ{% endblock title %}
+{% block cart %}
+<div class="shopping-cart-wrap">
+    <a href="#"> <span class="cart-total-amunt">{{cart.get_total_price}} تومان</span><i class="icon-shopping-bag2 float-left"></i><span class="cart-total">{{cart|length}}</span></a>
+    <ul class="mini-cart">
+        {% for item in cart %}
+            <li class="cart-item">
+                <div class="cart-image">
+                    <a href="{% url 'get.single.product' item.product.slug %}"><img alt="{{item.product.name}}" src="/media/{{item.product.picture}}" width="80" height="80"></a>
+                </div> 
+                <div class="cart-title">
+                    <a href="single-product.html">
+                        <h4>{{item.product.name}}</h4>
+                    </a>
+                    <div class="quanti-price-wrap">
+                        <span class="quantity">{{item.quantity}} ×</span>
+                        <div class="price-box"><span class="new-price">{{item.price}} تومان</span></div>
+                    </div>
+                    <a class="{% url 'cart.remove' item.product.id %}" href="#"><i class="icon-x"></i></a>
+                </div>
+            </li>
+        {% endfor %}
+  
+        <li class="subtotal-box">
+            <div class="subtotal-title">
+                <h3>جمع کل :</h3><span>{{cart.get_total_price}} تومان</span>
+            </div>
+        </li>
+        <li class="mini-cart-btns">
+            <div class="cart-btns">
+                <a href="{% url 'cart.detail' %}">مشاهده سبد</a>
+                <a href="{% url 'order.create' %}">پرداخت</a>
+            </div>
+        </li>
+    </ul>
+</div>
+{% endblock cart %}
+
+{% block content %}
+
+  <!-- breadcrumb-area start -->
+  <div class="breadcrumb-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <!-- breadcrumb-list start -->
+                <ul class="breadcrumb-list">
+                    <li class="breadcrumb-item"><a href="{% url 'home' %}">صفحه اصلی</a></li>
+                    <li class="breadcrumb-item active">جزییات پست</li>
+                </ul>
+                <!-- breadcrumb-list end -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- breadcrumb-area end -->
+
+
+<!-- main-content-wrap start -->
+<div class="main-content-wrap shop-page section-ptb">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 order-lg-2 order-2">
+                <!-- blog-sidebar-wrap start -->
+                <div class="blog-sidebar-wrap">
+                    <div class="blog-sidebar-widget-area">
+
+                        <!--single-widget start  -->
+                        <div class="single-widget search-widget mb-30">
+                            <h4 class="widget-title">فیلتر جستجو</h4>
+                            <form action="{% url 'blog.search' %}" method="POST">
+                                {% csrf_token %}
+                                <div class="form-input">
+                                    <input type="text" name="title" placeholder="جستجو...">
+                                    <button class="button-search" type="submit"><i class="icon-search"></i></button>
+                                </div>
+                            </form>
+                        </div>
+                        <!--single-widget start end -->
+
+                    
+                            <!--single-widget start  -->
+                            <div class="single-widget mb-30">
+                                <h4 class="widget-title">دسته بندی</h4>
+                                <!-- category-widget start -->
+                                <div class="category-widget-list">
+                                    <ul>
+                                        {% for category in categories  %}
+                                            <li><a href="{% url 'get.post.category' category.slug %}">{{category.name}}</a></li>
+                                        {% endfor %}
+                                     
+                                    </ul>
+                                </div>
+                                <!-- category-widget end -->
+                            </div>
+                            <!--single-widget end  -->
+
+                            <!--single-widget start  -->
+                            <div class="single-widget mb-30">
+                                <h4 class="widget-title">مطالب اخیر</h4>
+                                {% load jalali_tags %}
+                                <div class="recent-post-widget">
+                                    {% for post in lp %}
+                                    <div class="single-widget-post">
+                                        <div class="post-thumb">
+                                            <a href="#"><img width="80" height="80" src="/media/{{post.picture}}" alt="{{post.name}}"></a>
+                                        </div>
+                                        <div class="post-info">
+                                            <h6 class="post-title"><a href="#">{{post.title}}</a></h6>
+                                            <div class="post-date">{{post.created_at|to_jalali:'%y/%m/%d'}}</div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+
+                            </div>
+                            <!--single-widget end  -->
+
+                    </div>
+                </div>
+                <!-- blog-sidebar-wrap end -->
+            </div>
+            <div class="col-lg-9 order-lg-1 order-1">
+
+                <div class="blog-wrapper">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <!-- single-blog-wrap Start -->
+                            <div class="single-blog-wrap mb-40">
+                                <div class="latest-blog-content mt-0">
+                                    <h4><a href="{% url 'get.post' post.slug %}">{{post.title}}</a></h4>
+                                    <ul class="post-meta">
+                                        <li class="post-author">مدیر</li>
+                                        {% load jalali_tags %}
+                                        <li class="post-date">{{post.created_at|to_jalali:'%y/%m/%d'}}</li>
+                                 
+                                    </ul>
+                                </div>
+                                <div class="latest-blog-image">
+                                    <a href="{% url 'get.post' post.slug %}"><img class="img-fluid" src="/media/{{post.picture}}" width="845" height="502" alt="{{post.title}}"></a>
+                                </div>
+                                <div class="latest-blog-content mt-20">
+
+                                    <h3>{{post.body|safe|linebreaks}}</h3>
+
+                                   
+                        
+                                </div>
+                             
+                            </div>
+                            <!-- single-blog-wrap End -->
+                        </div>
+                    </div>
+                    <div class="related-post-blog-area ltr">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="section-title">
+                                    <h4>پست های مرتبط</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            {% for post in lpp %}
+                                <div class="col-lg-4 col-md-6">
+                                    <div class="single-latest-blog mt-30">
+                                        <div class="latest-blog-image">
+                                            <a href="{% url 'get.post' post.slug %}"><img src="/media/{{post.picture}}" width="243" height="144" alt="{{post.title}}"></a>
+                                        </div>
+                                        <div class="latest-blog-content mt-20">
+                                            <h4><a href="{% url 'get.post' post.slug %}"> {{post.title}}</a></h4>
+                                            <ul class="post-meta">
+                                                <li class="post-date rtl">{{post.created_at|to_jalali:'%y/%m/%d'}}</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                     
+                     
+                        </div>
+                    </div>
+
+   
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- main-content-wrap end -->
+{% endblock content %}

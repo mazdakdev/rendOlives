@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block cart %}
+<div class="shopping-cart-wrap">
+    <a href="#"> <span class="cart-total-amunt">{{cart.get_total_price}} تومان</span><i class="icon-shopping-bag2 float-left"></i><span class="cart-total">{{cart|length}}</span></a>
+    <ul class="mini-cart">
+        {% for item in cart %}
+            <li class="cart-item">
+                <div class="cart-image">
+                    <a href="{% url 'get.single.product' item.product.slug %}"><img alt="" src="/media/{{item.product.picture}}" width="80" height="80"></a>
+                </div> 
+                <div class="cart-title">
+                    <a href="single-product.html">
+                        <h4>{{item.product.name}}</h4>
+                    </a>
+                    <div class="quanti-price-wrap">
+                        <span class="quantity">{{item.quantity}} ×</span>
+                        <div class="price-box"><span class="new-price">{{item.price}} تومان</span></div>
+                    </div>
+                    <a class="{% url 'cart.remove' item.product.id %}" href="#"><i class="icon-x"></i></a>
+                </div>
+            </li>
+        {% endfor %}
+  
+        <li class="subtotal-box">
+            <div class="subtotal-title">
+                <h3>جمع کل :</h3><span>{{cart.get_total_price}} تومان</span>
+            </div>
+        </li>
+        <li class="mini-cart-btns">
+            <div class="cart-btns">
+                <a href="{% url 'cart.detail' %}">مشاهده سبد</a>
+                <a href="{% url 'order.create' %}">پرداخت</a>
+            </div>
+        </li>
+    </ul>
+</div>
+{% endblock cart %}
+{% block title %}
+فروشگاه اینترنتی رند - سفارش ناموفق
+{% endblock title %}
+{% block content %}
+<div class="container">
+   
+        <div class="row ">
+            <div class="col-12 text-center mb-50">
+                <br><br> <h2 style="">متاسفانه عملیات پرداخت ناموفق بود</h2>
+
+        
+                <h3>  {{order.user.first_name}} {{order.user.last_name}} عزیز </h3>
+                <p style="font-size:20px;color:#5C5C5C;">عملیات پرداخت ناموفق بود در صورت کسر وجه مبلغ برداشت شده حداکثر تا ۷۲ ساعت اینده به حساب شما باز میگردد</p>
+                <h4>شماره سفارش : #{{order.order_id}}</h4>
+                <a href="{% url 'home' %}" class="btn btn-dark text-white mt-1 " >     به صفحه اصلی برو.      </a>
+        
+            </div>
+        </div>
+</div>
+{% endblock content %}

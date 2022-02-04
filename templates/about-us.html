@@ -1,0 +1,476 @@
+{% extends 'base.html' %}
+{% block cart %}
+<div class="shopping-cart-wrap">
+    <a href="#"> <span class="cart-total-amunt">{{cart.get_total_price}} تومان</span><i class="icon-shopping-bag2 float-left"></i><span class="cart-total">{{cart|length}}</span></a>
+    <ul class="mini-cart">
+        {% for item in cart %}
+            <li class="cart-item">
+                <div class="cart-image">
+                    <a href="{% url 'get.single.product' item.product.slug %}"><img alt="" src="/media/{{item.product.picture}}" width="80" height="80"></a>
+                </div> 
+                <div class="cart-title">
+                    <a href="single-product.html">
+                        <h4>{{item.product.name}}</h4>
+                    </a>
+                    <div class="quanti-price-wrap">
+                        <span class="quantity">{{item.quantity}} ×</span>
+                        <div class="price-box"><span class="new-price">{{item.price}} تومان</span></div>
+                    </div>
+                    <a class="{% url 'cart.remove' item.product.id %}" href="#"><i class="icon-x"></i></a>
+                </div>
+            </li>
+        {% endfor %}
+  
+        <li class="subtotal-box">
+            <div class="subtotal-title">
+                <h3>جمع کل :</h3><span>{{cart.get_total_price}} تومان</span>
+            </div>
+        </li>
+        <li class="mini-cart-btns">
+            <div class="cart-btns">
+                <a href="{% url 'cart.detail' %}">مشاهده سبد</a>
+                <a href="{% url 'order.create' %}">پرداخت</a>
+            </div>
+        </li>
+    </ul>
+</div>
+{% endblock cart %}
+{% block title %}
+فروشگاه اینترنتی رند - درباره ما
+{% endblock title %}
+{% block content %}
+
+  <!-- breadcrumb-area start -->
+    <div class="breadcrumb-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <!-- breadcrumb-list start -->
+                    <ul class="breadcrumb-list">
+                        <li class="breadcrumb-item"><a href="{% url 'home' %}">صفحه اصلی </a></li>
+                        <li class="breadcrumb-item active">درباره ما</li>
+                    </ul>
+                    <!-- breadcrumb-list end -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- breadcrumb-area end -->
+
+
+    <!-- main-content-wrap start -->
+    <div class="main-content-wrap">
+        <div class="about-us-wlc section-pt section-pb">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="about-us-wrapper">
+                            <div class="title text-center mb-30">
+                                <h2>درباره ما</h2>
+                            </div>
+                            <div class="about-shop-image">
+                                <img src="assets/images/other/about-us-banner1.jpg" alt="">
+                            </div>
+                            <div class="about-welcome-text section-pt ">
+                              
+                                <h4 class=" mb-30 "> 
+                                    زیتون  اين ميوه در كنار طعمی خاص و منحصر به فرد، خواص شگفت‌انگيزي دارد.در واقع زيتون و روغنش خاصيت غذايي و هم ارزش دارويي دارند. به گفته‌ دانشمندان، زيتون معجزه‌گر است و در درمان بسياري از بيماري‌ها از جمله نقرس، تصلب شرايين، فشار خون، سوء هاضمه، زخم‌هاي اثني عشر، بيماري‌هاي پوستي، دردهاي عصبي، روماتيسم، ديابت و. . . كاربرد دارد. حال اگر مي‌خواهيد با ساير خواص اين ميوه اعجاب‌انگيز و شيوه مصرف آن آشنا شويد،
+
+                                    
+                                </h4>
+                                <br>
+                                <ul>
+                                    <h5><li>- زيتون آرامش بخش و مسهل است و به بهبود سوء‌هاضمه و زخم‌هاي گوارشي كمك مي‌كند</li></h5>
+                                    <h5><li>- در درمان نقرس و رماتيسم تاثيرگذار است</li></h5>
+                                    <h5><li> - «فنل» يكي از مواد مغذي مهم در زيتون است كه اثر آنتي ‌اكسيداني و ضدالتهابي دارد. در نتيجه از ايجاد لخته خون در عروق پيشگيري مي‌كند.</li></h5>
+                                    <h5>
+                                        <li>  - براي پيشگيري و درمان آسم و آرتروز مفيد است.</li>
+                                    </h5>
+                                    <h5>
+                                        <li> - دردهاي ناشي از ورم كليه را تسكين مي‌دهد.</li>
+                                    </h5>
+                                    <h5>
+                                        <li> - پاك‌كننده معده است.</li>
+                                    </h5>
+                                    <h5>
+                                        <li>- تحريك‌كننده نيروي جنسي است.</li>
+                                    </h5>
+                                    <h5>
+                                        <li>  - خواص آنتي‌اكسيداني، ضدباكتريايي و ضدميكروبي دارد.</li>
+                                    </h5>
+                                    <h5>
+                                        <li> زيبايي طبيعي و حفظ جواني با زيتون!</li>
+                                    </h5>
+                                    <h5>
+                                        <li> -  براي رفع جوش‌ها و كورك‌ها، زيتون را له كنيد و براي چند دقيقه روي ناحيه مورد نظر مالش دهيد.</li>
+                                    </h5>
+                                    <h5>
+                                        <li>  - مالش روغن زيتون روي پوست باعث افزايش لطافت و تسكين اگزما و پسوريازيس مي‌شود.</li>
+                                    </h5>
+                                    <h5>
+                                        <li> - مالش مو با روغن زيتون باعث كاهش موخوره و شوره سر شده، همچنین موجب براق و لطيف شدن موها مي‌شود.</li>
+                                    </h5>
+                                    <h5>
+                                        <li>   - مصرف موضعي روغن زيتون براي كاهش و پيشگيري از چين و چروك‌هاي پوست بسيار مفيد است.</li>
+                                    </h5>
+                                    <h5>
+                                        <li>   - مخلوط مساوي روغن زيتون و گليسيرين، ترك پوست پا را برطرف و از ريزش و سفيد شدن مو جلوگيري مي‌كند..</li>
+                                    </h5>
+                                    <h5>
+                                        <li> - روغن زيتون حاوي پلي‌فنول‌ است و از آسيب‌هاي پوستي در مواجهه با آفتاب جلوگيري مي‌كند. بنابراين توصيه مي‌شود از كرم‌هاي ضدآفتاب حاوي روغن زيتون استفاده كنيد.</li>
+                                    </h5>
+                                    <h5>
+                                        <li>              - برگ زيتون حاوي آنتي اكسيدان، مواد قندي، كلروفيل، موم و. . . است، بنابراين به كاهش فشار خون و زخم‌هاي عفوني كمك مي‌كند.
+                                            از برگ زیتون عرق برگ زیتون رند تهیه می‌شود   و برای کاهش قند خون و تنظیم فشار و درد میکروب معده وسفتی معده و کاهش دهنده چربی کبد می‌شود 
+                                            </li>
+                                    </h5>
+                                    <h5>
+                                        <li>
+                                            - جويدن برگ زيتون باعث رفع زخم‌هاي دهان مي‌شود.
+                                             تركيب برگ له شده زيتون با عسل به رفع ورم پلك‌ها و التيام زخم‌ها و خراش‌ها كمك مي‌كند.
+                                            </li>
+                                    </h5>
+                                    <h5>
+                                        <li>        - دمكرده برگ زيتون باعث كاهش فشار خون، نقرس و عوارض روماتيسم مي‌شود.
+                                   
+                                        </li>
+                                    </h5>
+                               
+                            
+                            
+                                
+                                  
+                                   
+                                   
+                                  
+                                   
+                                 
+                                  
+                                  
+                                    
+                                <ul>
+                          
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+    </div>
+    <!-- main-content-wrap end -->
+{% endblock content %}
+
+  <!-- breadcrumb-area start -->
+    <div class="breadcrumb-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <!-- breadcrumb-list start -->
+                    <ul class="breadcrumb-list">
+                        <li class="breadcrumb-item"><a href="index.html">صفحه اصلی </a></li>
+                        <li class="breadcrumb-item active">درباره ما</li>
+                    </ul>
+                    <!-- breadcrumb-list end -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- breadcrumb-area end -->
+
+
+    <!-- main-content-wrap start -->
+    <div class="main-content-wrap">
+        <div class="about-us-wlc section-pt section-pb">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="about-us-wrapper">
+                            <div class="title text-center mb-30">
+                                <h2>درباره ما</h2>
+                            </div>
+                            <div class="about-shop-image">
+                                <img src="assets/images/other/about-us-banner1.jpg" alt="">
+                            </div>
+                            <div class="about-welcome-text section-pt text-center">
+                                <h2>ما یک سازمان غذائی با ارائه محتوا و تجربیات مفید هستیم.</h2>
+                                <p class="welcome-dec">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای</p>
+                                <div class="signature">
+                                    <img src="assets/images/other/about-us-signature.png" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="service-area section-pt section-pb-30 service-bg">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4 col-md-6">
+                        <!-- single-service Start -->
+                        <div class="single-service mb-20 text-center">
+                            <div class="service-image">
+                                <img src="assets/images/icon/about-us-policy1.png" alt="">
+                            </div>
+                            <div class="service-content mt-15">
+                                <h5>طراحی خلاقانه</h5>
+                                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</p>
+                            </div>
+                        </div>
+                        <!-- single-service End -->
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <!-- single-service Start -->
+                        <div class="single-service mb-20 text-center">
+                            <div class="service-image">
+                                <img src="assets/images/icon/about-us-policy2.png" alt="">
+                            </div>
+                            <div class="service-content mt-15">
+                                <h5>100% تضمین بازگشت پول</h5>
+                                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</p>
+                            </div>
+                        </div>
+                        <!-- single-service End -->
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <!-- single-service Start -->
+                        <div class="single-service mb-20 text-center">
+                            <div class="service-image">
+                                <img src="assets/images/icon/about-us-policy3.png" alt="">
+                            </div>
+                            <div class="service-content mt-15">
+                                <h5>پشتیبانی 24/7</h5>
+                                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</p>
+                            </div>
+                        </div>
+                        <!-- single-service End -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="mission-area section-pb section-pt-30">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4 col-md-6">
+                        <!-- single-mission Start -->
+                        <div class="single-mission mt-30">
+                            <div class="image-thum">
+                                <img src="assets/images/other/about-us-banner2-1.jpg" alt="">
+                            </div>
+                            <div class="content mt-15 text-center">
+                                <h4>ما چه کارهایی انجام می دهیم?</h4>
+                                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</p>
+                            </div>
+                        </div>
+                        <!-- single-mission End -->
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <!-- single-mission Start -->
+                        <div class="single-mission mt-30">
+                            <div class="image-thum">
+                                <img src="assets/images/other/about-us-banner2-2.jpg" alt="">
+                            </div>
+                            <div class="content mt-15 text-center">
+                                <h4>مأموریت ما</h4>
+                                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</p>
+                            </div>
+                        </div>
+                        <!-- single-mission End -->
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <!-- single-mission Start -->
+                        <div class="single-mission mt-30">
+                            <div class="image-thum">
+                                <img src="assets/images/other/about-us-banner2-3.jpg" alt="">
+                            </div>
+                            <div class="content mt-15 text-center">
+                                <h4>تاریخچه ما</h4>
+                                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</p>
+                            </div>
+                        </div>
+                        <!-- single-mission End -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="faq-client-say-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6">
+                        <div class="section-title mb-30">
+                            <h3>چرا ما را انتخاب کرده اید ?</h3>
+                        </div>
+                        <div class="faq-style-wrap section-pb" id="faq-five">
+
+                            <!-- Panel-default -->
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h5 class="panel-title">
+                                        <a id="octagon" class="collapsed" role="button" data-bs-toggle="collapse" data-bs-target="#faq-collapse1" aria-expanded="true" aria-controls="faq-collapse1"> <span class="button-faq"></span>چطور درخواست خود را جهت مرجوعی کالا به شما اطلاع دهم؟</a>
+                                    </h5>
+                                </div>
+                                <div id="faq-collapse1" class="collapse show" aria-expanded="true" role="tabpanel" data-parent="#faq-five">
+                                    <div class="panel-body">
+                                        <p>
+                                            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--// Panel-default -->
+
+                            <!-- Panel-default -->
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h5 class="panel-title">
+                                        <a class="collapsed" role="button" data-bs-toggle="collapse" data-bs-target="#faq-collapse2" aria-expanded="false" aria-controls="faq-collapse2"> <span class="button-faq"></span>میتوانم سفارش خود را در محل پرداخت کنم؟</a>
+                                    </h5>
+                                </div>
+                                <div id="faq-collapse2" class="collapse" aria-expanded="false" role="tabpanel" data-parent="#faq-five">
+                                    <div class="panel-body">
+                                        <p>
+                                            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--// Panel-default -->
+
+                            <!-- Panel-default -->
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h5 class="panel-title">
+                                        <a class="collapsed" role="button" data-bs-toggle="collapse" data-bs-target="#faq-collapse3" aria-expanded="false" aria-controls="faq-collapse3"> <span class="button-faq"></span>شرایط کلی خرید و بازگرداندن کالای سوپر مارکتی به چه صورت است ؟</a>
+                                    </h5>
+                                </div>
+                                <div id="faq-collapse3" class="collapse" role="tabpanel" data-parent="#faq-five">
+                                    <div class="panel-body">
+                                        <p>
+                                            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--// Panel-default -->
+
+                            <!-- Panel-default -->
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h5 class="panel-title">
+                                        <a class="collapsed" role="button" data-bs-toggle="collapse" data-bs-target="#faq-collapse4" aria-expanded="false" aria-controls="faq-collapse4"> <span class="button-faq"></span>چطور میتوانم سفارشم را پیگیری کنم ؟</a>
+                                    </h5>
+                                </div>
+                                <div id="faq-collapse4" class="collapse" role="tabpanel" data-parent="#faq-five">
+                                    <div class="panel-body">
+                                        <p>
+                                            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--// Panel-default -->
+                        </div>
+
+                    </div>
+                    <div class="col-lg-6 col-md-6 ltr">
+                        <div class="testimonials-area section-pb">
+                            <div class="section-title mb-30">
+                                <h3> مشتریان  چه می گویند</h3>
+                            </div>
+                            <div class="row testimonial-two">
+                                <div class="col-lg-12">
+                                    <div class="testimonial-wrap-two text-center">
+                                        <div class="quote-container">
+                                            <div class="quote-image">
+                                                <img src="assets/images/testimonial/testimonial-01.jpg" alt="">
+                                            </div>
+                                            <div class="author">
+                                                <h6>نیلوفر</h6>
+                                            </div>
+                                            <div class="testimonials-text">
+                                                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="testimonial-wrap-two text-center">
+                                        <div class="quote-container">
+                                            <div class="quote-image">
+                                                <img src="assets/images/testimonial/testimonial-02.jpg" alt="">
+                                            </div>
+                                            <div class="author">
+                                                <h6>سارا</h6>
+                                            </div>
+                                            <div class="testimonials-text">
+                                                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="our-brand-area section-pt-100 section-pb-100 brand-bg">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="our-brand-active">
+                            <div class="brand-group">
+                                <div class="brand-item">
+                                    <a href="#"><img src="assets/images/brand/brand-01.png" alt=""></a>
+                                </div>
+                                <div class="brand-item">
+                                    <a href="#"><img src="assets/images/brand/brand-03.png" alt=""></a>
+                                </div>
+                            </div>
+                            <div class="brand-group">
+                                <div class="brand-item">
+                                    <a href="#"><img src="assets/images/brand/brand-02.png" alt=""></a>
+                                </div>
+                                <div class="brand-item">
+                                    <a href="#"><img src="assets/images/brand/brand-04.png" alt=""></a>
+                                </div>
+                            </div>
+                            <div class="brand-group">
+                                <div class="brand-item">
+                                    <a href="#"><img src="assets/images/brand/brand-03.png" alt=""></a>
+                                </div>
+                                <div class="brand-item">
+                                    <a href="#"><img src="assets/images/brand/brand-01.png" alt=""></a>
+                                </div>
+                            </div>
+                            <div class="brand-group">
+                                <div class="brand-item">
+                                    <a href="#"><img src="assets/images/brand/brand-04.png" alt=""></a>
+                                </div>
+                                <div class="brand-item">
+                                    <a href="#"><img src="assets/images/brand/brand-03.png" alt=""></a>
+                                </div>
+                            </div>
+                            <div class="brand-group">
+                                <div class="brand-item">
+                                    <a href="#"><img src="assets/images/brand/brand-06.png" alt=""></a>
+                                </div>
+                                <div class="brand-item">
+                                    <a href="#"><img src="assets/images/brand/brand-03.png" alt=""></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- main-content-wrap end -->
