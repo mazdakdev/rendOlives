@@ -114,7 +114,13 @@
                                                         <td>{{order.created_at|to_jalali:'%y/%m/%d - %H:%M:%S'}}</td>
                                                         <td>{{order.status}}</td>
                                                         <td>{{order.method}}</td>
-                                                        <td> {{order.get_total_cost}} </td>
+                                                        {% load pricetag %}
+                                                        {% if order.method == "ارسال معمولی" %}
+                                                            <td> {% add order.get_total_cost 50000 %} </td>
+                                                        {% else %}
+                                                            <td> {{ order.get_total_cost }} </td>
+                                                        {% endif %}
+                                                        
                                                         <td><a href="{% url 'get.order.item' order.id %}" class="view">مشاهده</a></td>
                                                     </tr>
                                                 {% endfor %}

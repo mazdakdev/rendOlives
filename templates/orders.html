@@ -79,8 +79,8 @@
                                 {% for order in orders %}
                                     {% with product=order.product %}
                                         <tr>
-                                            <td class="plantmore-product-thumbnail"><a href="{% url 'get.single.product' product.slug %}"><img src="/media/{{product.picture}}" alt="{{product.name}}" width="150" height="150"></a></td>
-                                            <td class="plantmore-product-name"><a href="{% url 'get.single.product' product.slug %}">{{product.name}}</a></td>
+                                            <td class="plantmore-product-thumbnail"><a href="{% url 'get.size' product.product.slug order.product.id %}"><img src="/media/{{product.picture}}" alt="{{product.name}}" width="150" height="150"></a></td>
+                                            <td class="plantmore-product-name"><a href="{% url 'get.size' product.product.slug order.product.id %}">{{product.product.name}} | {{product.name}}</a></td>
                                             {% if product.off_price %}
                                                 <td class="plantmore-product-price"><span class="amount">{{product.off_price}} تومان</span></td>
                                             {% else %}
