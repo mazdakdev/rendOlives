@@ -35,7 +35,7 @@ def order_create(request):
             order.user = request.user
             order.save()
             for i in cart:
-                OrderItems.objects.create(order=order , product = i["product"] , price= i['price'] , quantity=i["quantity"] )
+                OrderItems.objects.create(order=order , product = i["size"] , price= i['price'] , quantity=i["quantity"] )
             cart.clear()
             
 

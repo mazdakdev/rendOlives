@@ -112,6 +112,7 @@ JALALI_DATE_DEFAULTS = {
 }
 
 MIDDLEWARE = [
+  
     'django.middleware.gzip.GZipMiddleware',
     "htmlmin.middleware.HtmlMinifyMiddleware",
     'django.middleware.security.SecurityMiddleware',
@@ -121,6 +122,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
 
 ]
 

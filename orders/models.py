@@ -1,5 +1,5 @@
 from django.db import models
-from shop.models import Product, product
+from shop.models import Product, ProductSizes, product
 from django.contrib.auth.models import User
 
 from user.models import MyUser
@@ -60,7 +60,7 @@ pre_save.connect(pre_save_create_order_id, sender=Order)
 
 class OrderItems(models.Model):
     order = models.ForeignKey(Order ,  related_name="items" , on_delete=models.CASCADE)
-    product = models.ForeignKey(Product , related_name="order_items" , on_delete=models.CASCADE)
+    product = models.ForeignKey(ProductSizes , related_name="order_items" , on_delete=models.CASCADE)
     price = models.PositiveIntegerField(blank=True , null=True )
     quantity = models.PositiveIntegerField(default=1)
 

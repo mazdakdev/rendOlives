@@ -1,13 +1,14 @@
 
 import imp
+from math import prod
 from django.contrib.auth import login
 from django.db import models
 from django.shortcuts import get_object_or_404, redirect, render
 
 from user.views import categories, product
-from .models import Category, Comment, Product , Brand 
+from .models import Category, Comment, Product , Brand, ProductSizes 
 from .models import WebInfo as wb
-from .forms import CommentForm, WebInfoForm
+from .forms import CommentForm, ProductForm, WebInfoForm
 from django.contrib.auth.decorators import login_required
 from django.views.generic import DetailView
 from cart.forms import CartAddProductForm
@@ -78,6 +79,8 @@ def get_product_by_brand(request , slug):
 
 def get_product_by_slug(request , slug):
     product = Product.objects.get(slug=slug)
+    size = ProductSizes.objects.filter(product=product)
+    fs = size.first()
     similar_products = Product.objects.filter(category = product.category.id , available=True)
     cart = Cart(request)
     for item in cart:
@@ -85,7 +88,22 @@ def get_product_by_slug(request , slug):
             'quantity':item["quantity"],
             "override":True,
         })
-    return render(request , "product-details.html" , {"product":product , "smproducts":similar_products , "cart":cart})
+       
+    return render(request , "product-details.html" , { "size":size , "product":product,"fs":fs, "smproducts":similar_products , "cart":cart})
+
+def get_product_size_by_id(request , id , slug ):
+    size = ProductSizes.objects.get(id=id)
+    product = size.product
+    asize = ProductSizes.objects.filter(product=product)
+    similar_products = Product.objects.filter(category = product.category.id , available=True)
+    cart = Cart(request)
+    for item in cart:
+        item['update_quantity_form'] = CartAddProductForm(initial={
+            'quantity':item["quantity"],
+            "override":True,
+        })
+    return render(request , "product-size-details.html" , { "size":size ,"asize":asize ,"product":product, "smproducts":similar_products , "cart":cart})
+
 
 
 @login_required

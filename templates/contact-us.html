@@ -1,24 +1,24 @@
 
 {% extends 'base.html' %}
 {% block cart %}
-
 <div class="shopping-cart-wrap">
-    <a href="#"> <span class="cart-total-amunt">{{cart.get_total_price}} تومان</span><i class="icon-shopping-bag2 float-left"></i><span class="cart-total">{{cart|length}}</span></a>
+  <a href="#"> <span class="cart-total-amunt">{{cart.get_total_price}} تومان</span><i class="icon-shopping-bag2 float-left"></i><span class="cart-total">{{cart|length}}</span></a> 
     <ul class="mini-cart">
         {% for item in cart %}
             <li class="cart-item">
                 <div class="cart-image">
-                    <a href="{% url 'get.single.product' item.product.slug %}"><img alt="" src="/media/{{item.product.picture}}" width="80" height="80"></a>
+                     <a href="{% url 'get.single.product' item.size.product.slug %}"><img alt="{{item.size.product.name}}" src="/media/{{item.size.picture}}" width="80" height="80"></a>  
+
                 </div> 
                 <div class="cart-title">
                     <a href="single-product.html">
-                        <h4>{{item.product.name}}</h4>
+                        <h4>{{item.size.product.name}} | {{item.size.name}}</h4>
                     </a>
                     <div class="quanti-price-wrap">
                         <span class="quantity">{{item.quantity}} ×</span>
                         <div class="price-box"><span class="new-price">{{item.price}} تومان</span></div>
                     </div>
-                    <a class="{% url 'cart.remove' item.product.id %}" href="#"><i class="icon-x"></i></a>
+                    <a class="{% url 'cart.remove' item.size.id %}" href="#"><i class="icon-x"></i></a>
                 </div>
             </li>
         {% endfor %}
