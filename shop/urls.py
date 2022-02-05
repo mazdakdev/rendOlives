@@ -9,6 +9,7 @@ urlpatterns = [
     path("brand/<slug:slug>/products/" , views.get_product_by_brand , name="brand.products"),
     path("products/<slug:slug>" , views.get_product_by_slug , name="get.single.product"),
     path("products/<slug:slug>/comment/" , views.add_comment , name="add.comment"),
+    path("products/<slug:slug>/<int:id>" ,views.get_product_size_by_id , name="get.size"),
     path("products/" , views.shop , name="all.products"),
     path("cart/" , include("cart.urls") ),
     path("orders/" , include("orders.urls") ),

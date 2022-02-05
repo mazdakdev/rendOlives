@@ -8,10 +8,7 @@ from .forms import CartAddProductForm
 def cart_add(request , product_id , size):
     cart = Cart(request)
     product = Product.objects.get(id=product_id)
-    if size != 0:
-        size_ = product.size.get(id=size)
-    else:
-        size_ = None
+    size_ = get_object_or_404(ProductSizes , id=size)
 
     form = CartAddProductForm(request.POST)
     if form.is_valid():
@@ -20,10 +17,10 @@ def cart_add(request , product_id , size):
     return redirect("home")
 
 @require_POST
-def cart_remove(request , product_id):
+def cart_remove(request  , size_id):
     cart = Cart(request)
-    product = get_object_or_404(Product,id=product_id)
-    cart.remove(product=product)
+    product = get_object_or_404(ProductSizes,id=size_id)
+    cart.remove(size_=product)
     return redirect("cart.detail")
 
 

@@ -43,6 +43,7 @@ class ProductSizes(models.Model):
   price = models.IntegerField()
   off_price = models.IntegerField(blank=True , null=True)
   picture = models.ImageField(upload_to="products/%Y/%m/%d" )
+  product = models.ForeignKey("Product" ,  on_delete=models.CASCADE )
   
 
 
@@ -62,13 +63,14 @@ class Product(models.Model):
     amazing_till = models.CharField(max_length=10 , null=True , blank=True)
     off_price = models.IntegerField(blank=True , null=True)
     brand = models.ForeignKey(Brand ,on_delete=models.CASCADE , blank=True ,null=True )
-    size = models.ManyToManyField(ProductSizes , blank=True , related_name="products" )
     created_at = models.DateField(auto_now_add=True)
     update_at = models.DateField(auto_now=True)
 
     def get_absolute_url(self):
       return reverse('get.single.product', kwargs={'slug': self.slug})
-
+      
+    def get_absolute_url(self):
+      return reverse('get.size', kwargs={'slug': self.slug})
 
     class Meta:
         ordering=("name",) 

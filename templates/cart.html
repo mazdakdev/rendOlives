@@ -2,22 +2,23 @@
 
 {% block cart %}
 <div class="shopping-cart-wrap">
-    <a href="#"> <span class="cart-total-amunt">{{cart.get_total_price}} تومان</span><i class="icon-shopping-bag2 float-left"></i><span class="cart-total">{{cart|length}}</span></a>
+  <a href="#"> <span class="cart-total-amunt">{{cart.get_total_price}} تومان</span><i class="icon-shopping-bag2 float-left"></i><span class="cart-total">{{cart|length}}</span></a> 
     <ul class="mini-cart">
         {% for item in cart %}
             <li class="cart-item">
                 <div class="cart-image">
-                    <a href="{% url 'get.single.product' item.product.slug %}"><img alt="" src="/media/{{item.product.picture}}" width="80" height="80"></a>
+                     <a href="{% url 'get.single.product' item.size.product.slug %}"><img alt="{{item.size.product.name}}" src="/media/{{item.size.picture}}" width="80" height="80"></a>  
+
                 </div> 
                 <div class="cart-title">
                     <a href="single-product.html">
-                        <h4>{{item.product.name}}</h4>
+                        <h4>{{item.size.product.name}} | {{item.size.name}}</h4>
                     </a>
                     <div class="quanti-price-wrap">
                         <span class="quantity">{{item.quantity}} ×</span>
                         <div class="price-box"><span class="new-price">{{item.price}} تومان</span></div>
                     </div>
-                    <a class="{% url 'cart.remove' item.product.id %}" href="#"><i class="icon-x"></i></a>
+                    <a class="{% url 'cart.remove' item.size.id %}" href="#"><i class="icon-x"></i></a>
                 </div>
             </li>
         {% endfor %}
@@ -78,18 +79,18 @@
                             </thead>
                             <tbody>
                                 {% for item in cart %}
-                                    {% with product=item.product %}
+                                    {% with product=item.size.product %}
                                         <tr>
-                                            <td class="plantmore-product-thumbnail"><a href="{% url 'get.single.product' product.slug %}"><img src="/media/{{product.picture}}" alt="{{product.name}}" width="150" height="150"></a></td>
-                                            <td class="plantmore-product-name"><a href="{% url 'get.single.product' product.slug %}">{{product.name}}</a></td>
-                                            {% if product.off_price %}
-                                                <td class="plantmore-product-price"><span class="amount">{{product.off_price}} تومان</span></td>
+                                            <td class="plantmore-product-thumbnail"><a href="{% url 'get.single.product' product.slug %}"><img src="/media/{{item.size.picture}}" alt="{{item.size.name}}" width="150" height="150"></a></td>
+                                            <td class="plantmore-product-name"><a href="{% url 'get.single.product' product.slug %}">{{product.name}} | {{item.size.name}}</a></td>
+                                            {% if item.size.off_price %}
+                                                <td class="plantmore-product-price"><span class="amount">{{item.size.off_price}} تومان</span></td>
                                             {% else %}
-                                                <td class="plantmore-product-price"><span class="amount">{{product.price}} تومان</span></td>
+                                                <td class="plantmore-product-price"><span class="amount">{{item.size.price}} تومان</span></td>
                                             {% endif %}
                                             <td class="plantmore-product-quantity">
                                                
-                                                <form action="{% url 'cart.add' product.id %}" method="POST">
+                                                <form action="{% url 'cart.add' product.id item.size.id %}" method="POST">
                                             
                                                     {{item.update_quantity_form.quantity}}
                                                     {{item.update_quantity_form.override}}
@@ -101,7 +102,7 @@
                                             <td class="product-subtotal"><span class="amount">{{item.total_price}} تومان</span></td>
                                          
                                             <td class="plantmore-product-remove">
-                                                <form action="{% url 'cart.remove' product.id %}" method="POST">
+                                                <form action="{% url 'cart.remove' item.size.id %}" method="POST">
                                                     <button type="submit" class="btn btn-outline-dark]"><i class="icon-x"></i></button>
                                                     {% csrf_token %}
                                                 </form>
