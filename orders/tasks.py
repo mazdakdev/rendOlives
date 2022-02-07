@@ -32,7 +32,7 @@ def order_created(order_id):
     
 
     oid = str(order.order_id)
-    requests.get(f"http://ippanel.com:8080/?apikey={token}&pid=ds6io4te7j&fnum={fnum}&tnum=09981483416&p1=name&v1=مهدی&p2=order_id&v2={oid}&p3=price&v3={amount}")
+    requests.get(f"http://ippanel.com:8080/?apikey={token}&pid=ds6io4te7j&fnum={fnum}&tnum=09113354875&p1=name&v1=مهدی&p2=order_id&v2={oid}&p3=price&v3={amount}")
     return mail_sent
 
 

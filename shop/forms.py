@@ -7,7 +7,7 @@ from django.forms import ModelForm
 class ProductForm(ModelForm):
     class Meta:
         model = Product
-        fields = ("name" , "description" , "picture","picture2","picture3","amazing_till", "picture4", 'slug','price' , 'available' , 'category'  , "brand","tags", "is_amazing" , "off_price" , "brand")
+        fields = ("name" , "description" ,"amazing_till", 'slug','price' , 'available' , 'category'  , "brand","tags", "is_amazing" , "off_price" , "brand" , "picture",)
 
 class CategoryForm(ModelForm):
     class Meta:

@@ -169,7 +169,7 @@
 
 
                                                 <p class="text-content">
-                                                    {{product.description}}
+                                                    {{product.description|safe}}
                                                 </p>
                                       
                                          
@@ -182,6 +182,10 @@
                                                     <a  onclick="return confirm('آیا مطمعن هستید ؟')" class="btn btn-danger btn-lg" href="{% url 'admin.product.delete' product.id %}">
                                                         <i class="fa fa-close mr-2"></i>
                                                          حذف    
+                                                    </a>
+                                                    <a class="btn btn-info btn-lg" href="{% url 'admin.sizes' product.id %}">
+                                                        <i class="fa fa-eye mr-2"></i>
+                                                         مشاهده سایز ها    
                                                     </a>
                                                 </div>
                                             </div>

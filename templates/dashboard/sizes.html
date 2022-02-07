@@ -1,0 +1,193 @@
+{% extends './dbase.html' %}
+
+{% block title %}لیست پست ها{% endblock title %}
+
+{% block content %}
+<div id="main-wrapper">
+
+    <!--**********************************
+        Header start
+    ***********************************-->
+    <div class="header">
+        <div class="header-content">
+            <nav class="navbar navbar-expand">
+                <div class="collapse navbar-collapse justify-content-between">
+                    <div class="header-left">
+                        <div class="search_bar dropdown">
+                            <h3>rendolives.ir</h3>
+                        </div>
+                    </div>
+
+                    <ul class="navbar-nav header-right">
+                        
+                        
+                        <li class="nav-item dropdown header-profile">
+                            <div class="dropdown mr-5  ">
+                                <a href="#" class="btn btn-primary light sharp " data-toggle="dropdown" aria-expanded="true"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"></rect><circle fill="#000000" cx="5" cy="12" r="2"></circle><circle fill="#000000" cx="12" cy="12" r="2"></circle><circle fill="#000000" cx="19" cy="12" r="2"></circle></g></svg></a>
+                                <ul class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; will-change: transform; top: 0px; left: 100px; transform: translate3d(-169px, 30px, 0px);">
+                                    <li class="dropdown-item"><i class="fa fa-logout text-primary mr-2"></i> <a href="{% url 'profile' %}">خانه</a></li>
+                                    <li class="dropdown-item"><i class="fa fa-logout text-primary mr-2"></i> <a href="{% url 'logout' %}">خروج از حساب</a></li>
+                                    {% if user.is_superuser %}
+                                    <a href="{% url 'orders' %}"> <li class="dropdown-item"><i class="fa  text-primary mr-2"></i>سفارشات</li></a>
+                                    <a href="{% url 'admin.products' %}">   <li class="dropdown-item"><i class="fa  text-primary mr-2"></i> محصولات</li></a>
+                                
+                                    <a href="{% url 'admin.product.create' %}"><li class="dropdown-item"><i class="fa  text-primary mr-2"></i> ساخت محصول جدید</li></a>
+                                    <a href="{% url 'user.posts' %}"><li class="dropdown-item"><i class="fa  text-primary mr-2"></i>پست ها</li></a>
+                                    <a href="{% url 'admin.post.create' %}"><li class="dropdown-item"><i class="fa  text-primary mr-2"></i> ساخت پست جدید</li></a>
+                                    <a href="{% url 'admin.categories' %}">   <li class="dropdown-item"><i class="fa  text-primary mr-2"></i>دسته بندی ها</li></a>
+                                    <a href="{% url 'admin.category.create' %}">   <li class="dropdown-item"><i class="fa  text-primary mr-2"></i> ساخت دسته بندی جدید</li></a>
+                                    <a href="{% url 'admin.comments' %}">   <li class="dropdown-item"><i class="fa  text-primary mr-2"></i>کامنت ها</li></a>
+                                    <a href="{% url 'web.info' %}">   <li class="dropdown-item"><i class="fa  text-primary mr-2"></i>مشخصات وبسایت</li></a>
+                                    <a href="{% url 'admin.brands' %}">   <li class="dropdown-item"><i class="fa  text-primary mr-2"></i>برند ها</li></a>
+                                    <a href="{% url 'admin.create.brand' %}">   <li class="dropdown-item"><i class="fa  text-primary mr-2"></i>ساخت برند جدید</li></a>
+                                        {% else %}
+                                        <a href="{% url 'logout' %}">   <li class="dropdown-item"><i class="fa fa-logout text-primary mr-2"></i> سبد خرید</li></a>
+                                        <a href="{% url 'logout' %}">  <li class="dropdown-item"><i class="fa fa-logout text-primary mr-2"></i> علاقه مندی ها</li></a>
+                                        <a href="{% url 'logout' %}">     <li class="dropdown-item"><i class="fa fa-logout text-primary mr-2"></i> سفارشات</li></a>
+                                        <a href="{% url 'logout' %}">   <li class="dropdown-item"><i class="fa fa-logout text-primary mr-2"></i> مشخصات کاربری</li></a>
+                                    {% endif %}
+
+                                </ul>
+                            </div>
+                            <a class="nav-link" href="#" role="button" >
+                         
+                                <div class="header-info">
+                                    {% if user.is_superuser %}
+                                        <span>سلام, <strong>   </strong></span>
+                                        <small>به صفحه شخصی خودت خوش آمدی</small>
+                         
+                                </div>
+                            
+                            </a>
+                    
+                        </li>
+                
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <!--**********************************
+        Header end ti-comment-alt
+    ***********************************-->
+
+
+    <!--**********************************
+        Content body start
+    ***********************************-->
+    <div class="content-body">
+        {% if not user.is_superuser %}
+        <div class="authincation h-100">
+            <div class="container h-100">
+                <div class="row justify-content-center h-100 align-items-center">
+                    <div class="col-md-5">
+                        <div class="form-input-content text-center error-page">
+                            <h1 class="error-text  font-weight-bold">403</h1>
+                            <h4><i class="fa fa-times-circle text-danger"></i> خطای ممنوع!</h4>
+                            <p>شما اجازه مشاهده این منبع را ندارید.</p>
+                            <div>
+                                <a class="btn btn-primary" href="{% url 'profile' %}">برو صفحه اصلی</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="container">
+            <div class="row page-titles mx-0">
+                <div class="col-sm-6 p-md-0">
+                    <div class="welcome-text">
+                        <h4>سلام، خوش آمدید</h4>
+                        <p class="mb-0">سایز ها</p>
+                    </div>
+                </div>
+                <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'profile' %}">پروفایل</a></li>
+                        <li class="breadcrumb-item active"><a href="{% url 'user.posts' %}">سایز ها</a></li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="row">
+
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                                <div class="row">
+                                    
+                                    <h4 class="card-title ">سایز ها</h4>
+                                   
+                                </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-responsive-md">
+                                <thead>
+                                    <tr>
+
+                                        <th><strong>ID</strong></th>
+                                        <th><strong>نام</strong></th>
+                                        <th><strong>قیمت</strong></th>
+                                        <th><strong>قیمت تخفیف خورده</strong></th>
+                                        <th><strong>عکس</strong></th>
+                                        <th><strong>اسلاگ</strong></th>
+                     
+                                        <th><strong>دستورات</strong></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                    {% for size in sizes %}
+                                        <tr>
+                                      
+                                            <td><strong>{{size.id}}</strong></td>
+                                            <td><div class="d-flex align-items-center"><span class="w-space-no">{{size.name}}</span></div></td>
+                                            <td><div class="d-flex align-items-center"><span class="w-space-no">{{size.price}}</span></div></td>
+                                            <td><div class="d-flex align-items-center"><span class="w-space-no">{{size.off_price}}</span></div></td>
+                                            <td><img width="80" height="80" src="/media/{{size.picture}}"></td>
+
+                                            <td>
+                                                <div class="d-flex">
+                                                    <a href="{% url 'admin.size.create' size.product.id %}" class="btn btn-success shadow btn-xs sharp mr-1"><i class="fa fa-plus"></i></a>
+                                                    <a href="{% url 'edit.size' size.id  %}" class="btn btn-warning shadow btn-xs sharp mr-1"><i class="fa fa-pen"></i></a>
+                                                    <a href="{% url 'del.size' size.id %}" class="btn btn-danger shadow btn-xs sharp mr-1"><i class="fa fa-close"></i></a>
+                                                    
+                                                </div>
+                                            </td>
+
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+              
+     
+      
+        </div>
+        {% endif %}
+    
+
+    </div>
+
+    <!--**********************************
+        Footer start
+    ***********************************-->
+    <div class="footer">
+        <div class="copyright">
+            <p>Developed with ❤️ by <a href="https://github.com/mazdakdev">Mazdak</a> </p>
+        </div>
+    </div>
+    <!--**********************************
+        Footer end
+    ***********************************-->
+
+    
+</div>
+{% endif %}
+{% endblock %}

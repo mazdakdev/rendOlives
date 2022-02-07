@@ -70,56 +70,15 @@
                         <a href="/media/{{product.picture}}" data-fancybox="images"><i class="fa fa-search"></i></a>
                     </div>
           
-                    {% if product.picture2 %}
-                        <div class="pro-large-img img-zoom">
-                            <img src="/media/{{product.picture2}}"  alt="product-details" />
-                            <a href="/media/{{product.picture2}}" data-fancybox="images"><i class="fa fa-search"></i></a>
-                        </div>
-                    {% endif %}
-                    
-                    {% if product.picture3 %}
-                        <div class="pro-large-img img-zoom">
-                            <img src="/media/{{product.picture3}}"  alt="product-details" />
-                            <a href="/media/{{product.picture3}}" data-fancybox="images"><i class="fa fa-search"></i></a>
-                        </div>
-                    {% endif %}
+                   
                    
 
-                    {% if product.picture4 %}
-                        <div class="pro-large-img img-zoom">
-                            <img src="/media/{{product.picture4}}" alt="product-details" />
-                            <a href="/media/{{product.picture4}}" data-fancybox="images"><i class="fa fa-search"></i></a>
-                        </div>
-                    {% endif %}
-
-        
-                
             
                 </div>
                 <div class="product-nav ltr mt-20">
-                    <div class="pro-nav-thumb">
-                        <img src="/media/{{product.picture}}"  alt="product-details" />
-                    </div>
-
-                    {% if product.picture2 %}
-                        <div class="pro-nav-thumb">
-                            <img src="/media/{{product.picture2}}"   alt="product-details" />
-                        </div>
-                    {% endif %}
-
-                    {% if product.picture3 %}
-                        <div class="pro-nav-thumb">
-                            <img src="/media/{{product.picture3}}"  alt="product-details" />
-                        </div>
-                    {% endif %}
-
-                    {% if product.picture4 %}
-                        <div class="pro-nav-thumb">
-                            <img src="/media/{{product.picture4}}"  alt="product-details" />
-                        </div>
-                    {% endif %}
+            
                 </div>
-                <!--// Product Details Left -->
+
             </div>
 
             <div class="col-lg-7 col-md-6">
@@ -127,7 +86,7 @@
                     <div class="product-info">
                         <h3>{{product.name}}</h3>
                         <div class="price-box">
-                            {% if product.off_price %}
+                            {% if fs.off_price %}
                                 <span class="new-price">{{fs.off_price}} تومان</span>
                                 <span class="old-price">{{fs.price}} تومان</span>
                             {% else %}
@@ -141,65 +100,71 @@
                         </p>
 
                         <div class="single-add-to-cart">
-                            <form action="{% url 'cart.add' product.id fs.id %}" method="POST" class="cart-quantity d-flex">
+                            <form action="{% url 'cart.add' product.id fs.id %}" method="POST" class=" d-flex">
                                 {% csrf_token %}
-                                <div class="">
-                                    <div class="cart-plus-minus">
-                                        <select name="quantity" class="form-control ">
-                                            <option value="1">1 عدد</option>
-                                            <option value="2">2 عدد</option>
-                                            <option value="3">3 عدد</option>
-                                            <option value="4">4 عدد</option>
-                                            <option value="5">5 عدد</option>
-                                            <option value="7">7 عدد</option>
-                                            <option value="8">8 عدد</option>
-                                            <option value="9">9 عدد</option>
-                                            <option value="10">10 عدد</option>
-                                            <option value="11">11 عدد</option>
-                                            <option value="12">12 عدد</option>
-                                            <option value="13">13 عدد</option>
-                                            <option value="14">14 عدد</option>
-                                            <option value="15">15 عدد</option>
-                                            <option value="17">17 عدد</option>
-                                            <option value="18">18 عدد</option>
-                                            <option value="19">19 عدد</option>
-                                            <option value="20">20 عدد</option>
-                                  
-                            
-                                        </select>
+                 
+                             
+                          
                         
-                                    </div>
-                                </div>
-                        
-                                    <div>
-                                        <select name="" class="form-control " onchange="location = this.value;">
                                     
-                                            {% for item in size %}
-                                                <option value="{% url 'get.size' item.product.slug item.id %}">{{item.name}}</option>
-
-                                            {% endfor %}
-                                            
-                                 
-                                  
-                            
-                                        </select>
                         
-                                    </div>
+                            <div class="row mt-20 ">
+                                <div class="col-3">
                                     
-                                &nbsp;
-                                &nbsp;
-                                &nbsp;
-                                &nbsp;
-                                <form method="post" action="{% url 'cart.add' product.id fs.id  %}" >
-                                    {% csrf_token %}
-                                    <input type="submit" class="add-to-cart" value="افزودن به سبد">
-                                </form>
-                            </form>
+                                  
+                                    <select name="quantity" class="form-control  " >
+                                        <option value="1">1 عدد</option>
+                                        <option value="2">2 عدد</option>
+                                        <option value="3">3 عدد</option>
+                                        <option value="4">4 عدد</option>
+                                        <option value="5">5 عدد</option>
+                                        <option value="7">7 عدد</option>
+                                        <option value="8">8 عدد</option>
+                                        <option value="9">9 عدد</option>
+                                        <option value="10">10 عدد</option>
+                                        <option value="11">11 عدد</option>
+                                        <option value="12">12 عدد</option>
+                                        <option value="13">13 عدد</option>
+                                        <option value="14">14 عدد</option>
+                                        <option value="15">15 عدد</option>
+                                        <option value="17">17 عدد</option>
+                                        <option value="18">18 عدد</option>
+                                        <option value="19">19 عدد</option>
+                                        <option value="20">20 عدد</option>
+                              
+                        
+                                    </select>
+                    
+                              
                         </div>
-                        <ul class="single-add-actions">
-   
+                        <div class="col-3">
+                            <div>
+                                <select name="" class="form-control " onchange="location = this.value;" >
+                            
+                                    {% for item in size %}
+                                        <option value="{% url 'get.size' item.product.slug item.id %}">{{item.name}}</option>
+
+                                    {% endfor %}
+                                    
                          
-                        </ul>
+                          
+                    
+                                </select>
+                
+                            </div>
+                        </div>
+                                <div class="col-6">
+                                      
+                                    <form method="post" action="{% url 'cart.add' product.id fs.id  %}" class="mr-20" >
+                                        {% csrf_token %}
+                                        <input type="submit" class="add-to-cart" value="افزودن به سبد">
+                                    </form>
+                    
+                                </div>
+
+                     
+                            </div>
+                <br>
                         <ul class="stock-cont">
                             <li class="product-stock-status">دسته&zwnj;بندی : <a href="#">{{product.category}}</a></li>
                             <li class="product-stock-status">برند : <a href="#">{{product.brand}}</a></li>
@@ -209,6 +174,7 @@
                 </div>
             </div>
         </div>
+    </form>
 
         <div class="product-description-area section-pt">
             <div class="row">
