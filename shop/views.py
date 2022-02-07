@@ -20,8 +20,8 @@ from blog.models import Post
 # Create your views here.
 def HomeView(request):
     categories = Category.objects.all()
-    products = Product.objects.filter(available=True).order_by('-id')[:5]
-    off_products = Product.objects.filter(~Q(off_price=None))
+    products = Product.objects.filter(available=True).order_by('-id')[:4]
+    
     posts = Post.objects.all().order_by('-id')[:7]
     info = wb.objects.get(id=1)
     cart = Cart(request)
@@ -30,7 +30,7 @@ def HomeView(request):
             'quantity':item["quantity"],
             "override":True,
         })
-    return render(request , "index.html" , {"categories":categories,"products":products , "posts":posts ,"off_products":off_products, "info":info , "cart":cart })
+    return render(request , "index.html" , {"categories":categories,"products":products , "posts":posts, "info":info , "cart":cart })
 
 
 @login_required

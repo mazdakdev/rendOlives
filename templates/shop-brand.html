@@ -159,7 +159,7 @@
                                                                 <span class="price">{{product.price}} تومان</span>
                                                             </div>
                                                         {% endif %}
-                                                        <h6 class="product-name"><a href="product-details.html">{{product.name}}</a></h6>
+                                                        <h6 class="product-name"><a href="{% url 'get.single.product' product.slug %}">{{product.name}}</a></h6>
 
                                                         <div class="product-button-action">
                                                             <a  class="add-to-cart" href="{% url 'get.single.product' product.slug %}">مشاهده محصول</a>

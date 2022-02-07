@@ -74,13 +74,7 @@
                 
             
                 </div>
-                <div class="product-nav ltr mt-20">
-                    <div class="pro-nav-thumb">
-                        <img src="/media/{{size.picture}}"  alt="product-details" />
-                    </div>
-
-              
-                </div>
+          
                 <!--// Product Details Left -->
             </div>
 
@@ -89,7 +83,7 @@
                     <div class="product-info">
                         <h3>{{product.name}} | {{size.name}}</h3>
                         <div class="price-box">
-                            {% if product.off_price %}
+                            {% if size.off_price %}
                                 <span class="new-price">{{size.off_price}} تومان</span>
                                 <span class="old-price">{{size.price}} تومان</span>
                             {% else %}
@@ -105,57 +99,65 @@
                         <div class="single-add-to-cart">
                             <form action="{% url 'cart.add' product.id size.id %}" method="POST" class="cart-quantity d-flex">
                                 {% csrf_token %}
-                                <div class="">
-                                    <div class="cart-plus-minus">
-                                        <select name="quantity" class="form-control ">
-                                            <option value="1">1 عدد</option>
-                                            <option value="2">2 عدد</option>
-                                            <option value="3">3 عدد</option>
-                                            <option value="4">4 عدد</option>
-                                            <option value="5">5 عدد</option>
-                                            <option value="7">7 عدد</option>
-                                            <option value="8">8 عدد</option>
-                                            <option value="9">9 عدد</option>
-                                            <option value="10">10 عدد</option>
-                                            <option value="11">11 عدد</option>
-                                            <option value="12">12 عدد</option>
-                                            <option value="13">13 عدد</option>
-                                            <option value="14">14 عدد</option>
-                                            <option value="15">15 عدد</option>
-                                            <option value="17">17 عدد</option>
-                                            <option value="18">18 عدد</option>
-                                            <option value="19">19 عدد</option>
-                                            <option value="20">20 عدد</option>
-                                  
-                            
-                                        </select>
+                                              
                         
-                                    </div>
-                                </div>
-                        
-                                    <div>
-                                        <select name="" class="form-control " onchange="location = this.value;">
-                                            <option>{{size.name}}</option>
-                                            {% for item in asize %}
-                                                <option value="{% url 'get.size' item.product.slug item.id %}">{{item.name}}</option>
-
-                                            {% endfor %}
-                                            
-                                 
-                                  
-                            
-                                        </select>
-                        
-                                    </div>
+                            <div class="row mt-20 ">
+                                <div class="col-3">
                                     
-                                &nbsp;
-                                &nbsp;
-                                &nbsp;
-                                &nbsp;
-                                <form method="post" action="{% url 'cart.add' product.id size.id  %}" >
-                                    {% csrf_token %}
-                                    <input type="submit" class="add-to-cart" value="افزودن به سبد">
-                                </form>
+                                  
+                                    <select name="quantity" class="form-control  " >
+                                        <option value="1">1 عدد</option>
+                                        <option value="2">2 عدد</option>
+                                        <option value="3">3 عدد</option>
+                                        <option value="4">4 عدد</option>
+                                        <option value="5">5 عدد</option>
+                                        <option value="7">7 عدد</option>
+                                        <option value="8">8 عدد</option>
+                                        <option value="9">9 عدد</option>
+                                        <option value="10">10 عدد</option>
+                                        <option value="11">11 عدد</option>
+                                        <option value="12">12 عدد</option>
+                                        <option value="13">13 عدد</option>
+                                        <option value="14">14 عدد</option>
+                                        <option value="15">15 عدد</option>
+                                        <option value="17">17 عدد</option>
+                                        <option value="18">18 عدد</option>
+                                        <option value="19">19 عدد</option>
+                                        <option value="20">20 عدد</option>
+                              
+                        
+                                    </select>
+                    
+                              
+                        </div>
+                        <div class="col-3">
+                            <div>
+                                <select name="" class="form-control " onchange="location = this.value;" >
+                            
+                                    {% for item in asize %}
+                                        <option value="{% url 'get.size' item.product.slug item.id %}">{{item.name}}</option>
+
+                                    {% endfor %}
+                                    
+                         
+                          
+                    
+                                </select>
+                
+                            </div>
+                        </div>
+                                <div class="col-6">
+                                      
+                                    <form method="post" action="{% url 'cart.add' product.id size.id  %}" class="mr-20" >
+                                        {% csrf_token %}
+                                        <input type="submit" class="add-to-cart" value="افزودن به سبد">
+                                    </form>
+                    
+                                </div>
+
+                     
+                            </div>
+                         
                             </form>
                         </div>
                         <ul class="single-add-actions">

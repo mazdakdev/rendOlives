@@ -19,6 +19,7 @@ urlpatterns = [
     path("categories/" , views.categories , name="admin.categories"),
     path("delete-category/<int:id>" , views.delete_category , name="admin.category.delete"),
     path("update-category/<int:id>" , views.edit_category , name="admin.category.update"),
+    path("create-size/<int:product_id>" , views.create_size , name="admin.size.create"),
     path("create-category/" , views.create_category , name="admin.category.create"),
     path("webinfo/" , sview.WebInfo , name="web.info"),
     path("comments/" , views.comments , name="admin.comments"),
@@ -38,6 +39,9 @@ urlpatterns = [
     path("post-update/<int:id>" , views.update_post , name="admin.post.update"),
     path("add-post/" , views.add_post , name="admin.post.create"),
     path("orders/<int:id>" , views.order_items , name="admin.order"),
+    path("product/<int:id>/sizes/" , views.sizes , name="admin.sizes"),
+    path("delete-size/<int:id>" , views.del_size , name="del.size"),
+    path("edit-size/<int:id>" , views.edit_size , name="edit.size"),
 
 
   

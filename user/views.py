@@ -10,10 +10,10 @@ from django.contrib.auth.decorators import login_required
 
 from user.models import OrderAddress
 from .forms import OrderAddressForm
-from shop.models import Brand, Comment, Product , Category 
+from shop.models import Brand, Comment, Product , Category, ProductSizes 
 from orders.models import Order, OrderItems
 from shop.models import WebInfo as wb
-from shop.forms import BrandForm, CommentForm, ProductForm , CategoryForm
+from shop.forms import BrandForm, CommentForm, ProductForm , CategoryForm, ProductSizesForm
 from .tasks import order_status_changed
 from django.db.models import Q
 from azbankgateways.models import Bank
@@ -189,13 +189,29 @@ def create_product(request):
             form = ProductForm(request.POST , request.FILES)
             if form.is_valid():
                 form.save()
-                return redirect("admin.products")
+                return redirect("admin.size.create" , form.instance.id)
             else:
                 print(form)
                 print("Invalid Form")
                 print(form.errors)
                 return render(request, 'dashboard/admin-create-product.html',{'form':form})
         return render(request , "dashboard/admin-create-product.html" , {"categories":categories,"brands":brands})
+
+@login_required
+def create_size(request , product_id):
+    if request.user.is_superuser:
+        product = Product.objects.get(id=product_id)
+        if request.method == "POST":
+            form = ProductSizesForm(request.POST , request.FILES)
+            if form.is_valid():
+                f = form.save(commit=False)
+                f.product = product
+                f.save()
+                return redirect("admin.size.create" ,  product.id)
+            else:
+                return render(request , 'dashboard/add-size.html' , {"form":form, "product":product})
+        return render(request , 'dashboard/add-size.html' , {"product":product})
+        
 
 @login_required
 def categories(request):
@@ -423,3 +439,33 @@ def order_items(request , id):
     order = get_object_or_404(Order , id=id)
     orders = OrderItems.objects.filter(order=order)
     return render(request , 'dashboard/order-items.html' , {'orders':orders , "o":order})
+
+
+
+def sizes(request , id):
+    product = Product.objects.get(id=id)
+    sizes = ProductSizes.objects.filter(product=product)
+
+    return render(request,"dashboard/sizes.html" , {"sizes":sizes})
+
+
+def del_size(request , id):
+    size = ProductSizes.objects.get(id=id)
+    size.delete()
+    return redirect("admin.sizes" , size.product.id)
+
+def edit_size(request , id):
+    if request.user.is_superuser:
+        size = ProductSizes.objects.get(id=id)
+        product = size.product
+        if request.method == "POST":
+            form = ProductSizesForm(request.POST , request.FILES , instance=size)
+            if form.is_valid():
+                f = form.save(commit=False)
+                f.product = product
+                f.save()
+                return redirect("admin.sizes" ,  product.id)
+            else:
+                return render(request , 'dashboard/edit-size.html' , {"form":form, "product":product , "size":size})
+        return render(request , 'dashboard/edit-size.html' , {"product":product , "size":size})
+    

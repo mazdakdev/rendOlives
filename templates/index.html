@@ -9,7 +9,7 @@
         {% for item in cart %}
             <li class="cart-item">
                 <div class="cart-image">
-                     <a href="{% url 'get.single.product' item.size.product.slug %}"><img alt="{{item.size.product.name}}" src="/media/{{item.size.picture}}" width="80" height="80"></a>  
+                    <a href="{% url 'get.single.product' item.size.product.slug %}"><img alt="{{item.size.product.name}}" src="/media/{{item.size.picture}}" width="80" height="80"></a>  
 
                 </div> 
                 <div class="cart-title">
@@ -118,8 +118,8 @@
                     <!-- Section Title End -->
                 </div>
             </div>
-            <div class="col-xl-10 col-lg-9 col-md-8">
-                <div class="row row-8 product-active-lg-4 ltr">
+            <div class="">
+                <div class="row row-8 product-active-lg-4 ">
 
      
                
@@ -131,7 +131,7 @@
                                     <div class="product-image">
                                         {% load thumbnail %}
 
-                                        {% thumbnail product.picture "234x363" as thumb %}
+                                        {% thumbnail product.picture "400x200" as thumb %}
                                     
                                             <a href="{% url 'get.single.product' product.slug %}"><img src="{{ thumb.url }}" width="{{ thumb.width }}" height="{{ thumb.height }}" alt="{{product.name}}"></a>
                                         {% endthumbnail %}
@@ -149,7 +149,7 @@
 
                                             {% endif %}
                                         </div>
-                                        <h6 class="product-name"><a href="product-details.html">{{product.name}}</a></h6>
+                                        <h6 class="product-name"><a href="{% url 'get.single.product' product.slug %}">{{product.name}}</a></h6>
                                 
                                         <div class="product-button-action">
                                             <a href="{% url 'get.single.product' product.slug %}" class="add-to-cart">مشاهده محصول</a>
@@ -211,7 +211,7 @@
                                         {% else %}
                                             <span class="price">{{product.price}}</span>
                                         {% endif %}
-                                        <h6 class="product-name"><a href="product-details.html">{{product.name}}</a></h6>
+                                        <h6 class="product-name"><a href="{% url 'get.single.product' product.slug %}">{{product.name}}</a></h6>
                                 
                                         <div class="product-button-action">
                                         
@@ -261,11 +261,17 @@
                 <div class="product-wrapper-four ltr">
                     <div class="row row-8 product-row-6-active">
                         {% for post in posts %}
-                            <div class="product-col">
+                            <div class="product-col post-size">
                                 <!-- Single Product Start -->
                                 <div class="single-product-wrap mt-10">
-                                    <div class="product-image">
-                                        <a href="{% url 'get.post' post.slug %}"><img width="293" height="197"  src="/media/{{post.picture}}" alt="{{post.title}}"></a>
+                                    <div class="">
+                                        {% load thumbnail %}
+
+                                        {% thumbnail post.picture "500x200" as thumb %}
+                                    
+                                            <a href="{% url 'get.post' post.slug %}"><img src="{{ thumb.url }}" width="{{ thumb.width }}" height="{{ thumb.height }}" alt="{{post.title}}"></a>
+                                        {% endthumbnail %}
+                                      
                             
                                     </div>
                                 
