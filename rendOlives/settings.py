@@ -163,11 +163,9 @@ WSGI_APPLICATION = 'rendOlives.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'postgres',
-
+        'NAME': 'sqlite',
     }
 }
-
 
 
 
