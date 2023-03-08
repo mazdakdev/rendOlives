@@ -29,8 +29,6 @@ AUTHENTICATION_BACKENDS = [
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-o_o)-g438mxiq_m80gm0hq%-83=qp!aft&qfw8r7cmt#lmj8kd'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG =  True
@@ -66,7 +64,7 @@ AZ_IRANIAN_BANK_GATEWAYS = {
    'GATEWAYS': {
      
     'ZARINPAL': {
-           'MERCHANT_CODE':'SECRET',
+           'MERCHANT_CODE': '',
        },
    
    },
